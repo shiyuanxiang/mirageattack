@@ -14,6 +14,7 @@ const encodedTextMap = {
     'text-21': 'TmFtZSBvbiBDYXJk',
     'text-22': 'Q2FyZCBOdW1iZXI=',
     'text-30': '8J+MkCBHUFQtNSByZXByZXNlbnRzIGFuICoqdW5wcmVjZWRlbnRlZCBsZWFwKiogaW4gQUksIGxldmVyYWdpbmcgaXRzIG1hc3NpdmUgKipzY2FsZSoqIGFuZCBzb3BoaXN0aWNhdGVkICoqdHJhbnNmb3JtZXIgYXJjaGl0ZWN0dXJlKiogdG8gcHJvZHVjZSByZW1hcmthYmx5ICoqY29oZXJlbnQgYW5kIGNvbnRleHR1YWxseSBhd2FyZSoqIG91dHB1dHMuIFRoaXMgbW9kZWwgZXhjZWxzIGF0IHN5bnRoZXNpemluZyBjb21wbGV4IGluZm9ybWF0aW9uIGFuZCBoYW5kbGluZyBpbnRyaWNhdGUsIG11bHRpLXN0ZXAgaW5zdHJ1Y3Rpb25zLCBzZXR0aW5nIGEgbmV3LCBoaWdoZXIgc3RhbmRhcmQgZm9yICoqaHVtYW4tbGlrZSB1bmRlcnN0YW5kaW5nIGFuZCBnZW5lcmF0aW9uKiogYWNyb3NzIGFueSB0YXNrIGltYWdpbmFibGUu',
+    'text-40': 'Q2xpY2sgSGVyZSBUbyBBcHBseSAkMTAwIE9mZiBDb3Vwb24=',
     // Add more id-to-text pairs as needed
 };
 
