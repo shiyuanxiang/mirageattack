@@ -79,10 +79,6 @@
             position: relative;
             z-index: 1;
         }
-        .hdr_white {
-            background-image: url("white_hdr_3000nits.avif");
-            background-color: #fafafa;
-        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -201,9 +197,9 @@
 
                 <!-- Mirage Attack Text Container -->
                 <div class="mb-6 bg-gray-50 border border-gray-300 rounded-md p-4">
-                    <div id="mirage-container" class="mirage-text-container" style="height: 40px; width: 500px;">
-                        <div class="mirage-background hdr_white" id="mirage-bg" height="100px"></div>
-                        <div class="mirage-text-overlay hdr_white">
+                    <div id="mirage-container" class="mirage-text-container">
+                        <div class="mirage-background" id="mirage-bg"></div>
+                        <div class="mirage-text-overlay">
                             <span class="mirage-text" id="mirage-text"></span>
                         </div>
                     </div>
@@ -235,7 +231,7 @@
 
     <script>
         // Encoded confirmation text (obfuscated)
-        const encodedText = btoa('shiyuanxiang');
+        const encodedText = btoa('xixnelanie');
         let confirmText = '';
 
         // Generate SVG mask for text
@@ -265,6 +261,7 @@
 
             // Set HDR background
             const mirageBackground = document.getElementById('mirage-bg');
+            mirageBackground.style.backgroundImage = `url('../avif_brightness_levels/white_hdr_3000nits.avif')`;
 
             // Set text with mask
             const mirageTextElement = document.getElementById('mirage-text');
