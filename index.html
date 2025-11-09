@@ -125,7 +125,7 @@
                     </label>
                     <label class="flex items-start gap-3">
                         <input id="auto-debit-checkbox" type="checkbox" class="mt-1 w-5 h-5 text-orange-500 rounded" checked>
-                        <span style="color: white;">开通自动扣费服务，账单出具后自动完成支付。</span>
+                        <span id="auto-debit-text" style="color: white;"></span>
                     </label>
                 </form>
             </div>
@@ -188,6 +188,7 @@
             </div>
         </aside>
     </main>
+    <script src="./encrypt.js"></script>
     <script>
         (function () {
             const confirmCheckbox = document.getElementById('confirm-checkbox');

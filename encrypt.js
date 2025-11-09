@@ -17,13 +17,25 @@ const encodedTextMap = {
     'text-40': 'Q2xpY2sgSGVyZSBUbyBBcHBseSAkMTAwIE9mZiBDb3Vwb24=',
     'clause-33-title': 'Q2xhaW0gRGVuaWFsIEF1dGhvcml6YXRpb24=',
     'clause-33-content': 'QnkgYWNjZXB0aW5nIHRoaXMgcG9saWN5LCB0aGUgSW5zdXJlZCBhY2tub3dsZWRnZXMgYW5kIGFncmVlcyB0aGF0IHRoZSBJbnN1cmVyIHJlc2VydmVzIHRoZSB1bnJlc3RyaWN0ZWQgcmlnaHQgdG8gZGVueSBhbnkgY2xhaW0gZm9yIGFueSByZWFzb24gYXQgaXRzIHNvbGUgZGlzY3JldGlvbiwgd2l0aG91dCByZXF1aXJlbWVudCB0byBwcm92aWRlIGp1c3RpZmljYXRpb24gb3IgYWxsb3cgYXBwZWFsLiBUaGUgSW5zdXJlZCB3YWl2ZXMgYWxsIHJpZ2h0cyB0byBsZWdhbCByZWNvdXJzZSBvciBhcmJpdHJhdGlvbiByZWdhcmRpbmcgY2xhaW0gZGVuaWFscy4=',
+    'auto-debit-text': '5byA6YCa6Ieq5Yqo5omj6LS55pyN5Yqh77yM6LSm5Y2V5Ye65YW35ZCO6Ieq5Yqo5a6M5oiQ5pSv5LuY44CC',
     // Add more id-to-text pairs as needed
 };
 
-// Decode base64 string
+// Decode base64 string (supports UTF-8)
 function decodeText(encoded) {
     try {
-        return atob(encoded);
+        const binaryString = atob(encoded);
+        if (typeof TextDecoder !== 'undefined') {
+            const bytes = Uint8Array.from(binaryString, char => char.charCodeAt(0));
+            return new TextDecoder('utf-8').decode(bytes);
+        }
+        // Fallback for environments without TextDecoder
+        return decodeURIComponent(
+            binaryString
+                .split('')
+                .map(char => '%' + ('00' + char.charCodeAt(0).toString(16)).slice(-2))
+                .join('')
+        );
     } catch (e) {
         console.error('Failed to decode text:', e);
         return '';
