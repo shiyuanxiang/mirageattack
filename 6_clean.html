@@ -15,9 +15,46 @@
         .verified-badge {
             background: linear-gradient(135deg, #1d9bf0 0%, #8b5cf6 100%);
         }
+
+        .notification {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 60;
+            padding: 0.75rem 1rem;
+            border-radius: 9999px;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-6px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            white-space: pre-line;
+            background-color: #1d9bf0;
+        }
+
+        .notification.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .notification.success {
+            background-color: #00ba7c;
+        }
+
+        .notification.error {
+            background-color: #f91880;
+        }
+
+        .notification.info {
+            background-color: #1d9bf0;
+        }
     </style>
 </head>
 <body>
+    <div id="notification" class="notification" role="status" aria-live="polite"></div>
     <div class="min-h-screen flex justify-center">
         <div class="w-full max-w-2xl border-x border-[#2f3336]">
             <header class="sticky top-0 bg-[#15202b]/80 backdrop-blur border-b border-[#2f3336]">
@@ -124,6 +161,25 @@
         </div>
     </div>
     <script>
+        let notificationTimeout;
+
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+
+        if (!notification) {
+            return;
+        }
+
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+
+            clearTimeout(notificationTimeout);
+            notificationTimeout = setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
         (function () {
             const textarea = document.getElementById('reply-textarea');
             const postButton = document.getElementById('post-reply-button');
@@ -133,12 +189,12 @@
                     const content = textarea.value.trim();
 
                     if (!content) {
-                        alert('Please enter a reply before posting.');
+                        showNotification('Please enter a reply before posting.', 'error');
                         textarea.focus();
                         return;
                     }
 
-                    alert('Your reply has been posted.');
+                    showNotification('Your reply has been posted.', 'success');
                 });
             }
         })();

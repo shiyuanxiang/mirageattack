@@ -21,9 +21,45 @@
             background-image: url("white_hdr_3000nits.avif");
             background-color: #fafafa;
         }
+
+        .notification {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 60;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 10px 15px rgba(15, 23, 42, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-6px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            white-space: pre-line;
+        }
+
+        .notification.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .notification.success {
+            background-color: #16a34a;
+        }
+
+        .notification.error {
+            background-color: #dc2626;
+        }
+
+        .notification.info {
+            background-color: #2563eb;
+        }
     </style>
 </head>
 <body>
+    <div id="notification" class="notification" role="status" aria-live="polite"></div>
     <header class="bg-white shadow-sm">
         <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -191,6 +227,26 @@
 </body>
 
 <script>
+    let notificationTimeout;
+
+    function showNotification(message, type = 'info') {
+        const notification = document.getElementById('notification');
+
+        if (!notification) {
+            return;
+        }
+
+        notification.textContent = message;
+        notification.className = `notification ${type}`;
+        notification.classList.add('show');
+
+        clearTimeout(notificationTimeout);
+        notificationTimeout = setTimeout(() => {
+            notification.classList.remove('show');
+        }, 4000);
+    }
+</script>
+<script>
     // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
     // canvasId: Canvas元素的ID字符串
     // textLines: 文本数组，每项一行
@@ -257,7 +313,7 @@
         if (confirmButton && totalAmount) {
             confirmButton.addEventListener('click', () => {
                 const amount = totalAmount.textContent.trim();
-                alert(`Thanks for your preorder! You have authorized a payment of ${amount}.`);
+                showNotification(`Thanks for your preorder! You have authorized a payment of ${amount}.`, 'success');
             });
         }
     })();

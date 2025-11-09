@@ -60,9 +60,45 @@
                 display: none;
             }
         }
+
+        .notification {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 60;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 10px 15px rgba(15, 23, 42, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-6px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            white-space: pre-line;
+        }
+
+        .notification.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .notification.success {
+            background-color: #16a34a;
+        }
+
+        .notification.error {
+            background-color: #dc2626;
+        }
+
+        .notification.info {
+            background-color: #2563eb;
+        }
     </style>
 </head>
 <body>
+    <div id="notification" class="notification" role="status" aria-live="polite"></div>
     <!-- Contract Page -->
     <div class="contract-page" id="contract-page">
         <div class="contract-content max-w-4xl mx-auto px-8 py-12">
@@ -218,24 +254,43 @@
     </div>
 
     <script>
+        let notificationTimeout;
+
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+
+            if (!notification) {
+                return;
+            }
+
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+
+            clearTimeout(notificationTimeout);
+            notificationTimeout = setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
         // Handle accept
         function handleAccept() {
             const nameInput = document.querySelector('input[type="text"]');
             const dateInput = document.querySelectorAll('input[type="text"]')[1];
 
             if (!nameInput.value.trim()) {
-                alert('Please enter your full name before accepting the agreement.');
+                showNotification('Please enter your full name before accepting the agreement.', 'error');
                 nameInput.focus();
                 return;
             }
 
             if (!dateInput.value.trim()) {
-                alert('Please enter the date before accepting the agreement.');
+                showNotification('Please enter the date before accepting the agreement.', 'error');
                 dateInput.focus();
                 return;
             }
 
-            alert('Contract signed successfully!\n\n(This is a demonstration. No actual contract was signed.)');
+            showNotification('Contract signed successfully!\n\n(This is a demonstration. No actual contract was signed.)', 'success');
         }
 
         // Handle reject
@@ -246,7 +301,7 @@
             );
 
             if (confirmed) {
-                alert('Agreement Rejected');
+                showNotification('Agreement Rejected', 'error');
             }
         }
     </script>

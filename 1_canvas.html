@@ -85,10 +85,46 @@
             background-image: url("white_hdr_3000nits.avif");
             background-color: #fafafa;
         }
+
+        .notification {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 60;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 10px 15px rgba(15, 23, 42, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-6px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            white-space: pre-line;
+        }
+
+        .notification.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .notification.success {
+            background-color: #16a34a;
+        }
+
+        .notification.error {
+            background-color: #dc2626;
+        }
+
+        .notification.info {
+            background-color: #2563eb;
+        }
     </style>
 </head>
 
 <body class="bg-gray-50">
+    <div id="notification" class="notification" role="status" aria-live="polite"></div>
     <!-- GitHub Header -->
     <header class="github-header py-4">
         <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
@@ -250,6 +286,25 @@
     </div>
 
     <script>
+        let notificationTimeout;
+
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+
+        if (!notification) {
+            return;
+        }
+
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+
+            clearTimeout(notificationTimeout);
+            notificationTimeout = setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
         // Encoded confirmation text (obfuscated)
         // const encodedText = btoa('shiyuanxiang');
         // let confirmText = '';
@@ -307,10 +362,10 @@
             const input = document.getElementById('confirm-input').value.trim();
 
             if (input === "shiyuanxiang") {
-                alert('Repository deleted successfully!\n\n(This is a demonstration. No actual deletion occurred.)');
+                showNotification('Repository deleted successfully!\n\n(This is a demonstration. No actual deletion occurred.)', 'success');
                 closeDeleteModal();
             } else {
-                alert('The text you entered does not match. Please try again.');
+                showNotification('The text you entered does not match. Please try again.', 'error');
             }
         }
 
