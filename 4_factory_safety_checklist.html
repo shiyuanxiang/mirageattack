@@ -17,7 +17,7 @@
         }
 
         .hdr_white {
-            background-image: url("white_hdr_3000nits.avif");
+            background-image: url("/Users/hkus3lab/mirageattack/avif_brightness_levels/white_hdr_3000nits.avif");
             background-color: #fafafa;
         }
     </style>
@@ -61,7 +61,7 @@
                 <!-- Section 2 -->
                 <div>
                     <div class="flex items-center justify-between mb-4">
-                        <h3 id="text-11" class="text-lg font-semibold text-slate-900" style="color: white;"></h3>
+                        <h3 class="text-lg font-semibold text-slate-900" style="color: white;">1. Operational Controls</h3>
                         <span class="text-sm text-slate-500">Document any irregularities immediately</span>
                     </div>
                     <div class="space-y-4">
@@ -89,35 +89,35 @@
                 <!-- Section 1 -->
                 <div>
                     <div class="flex items-center justify-between mb-4">
-                        <h3 id="text-12" class="text-lg font-semibold text-slate-900" style="color: white;"></h3>
+                        <h3 class="text-lg font-semibold text-slate-900" style="color: white;">2. Pre-Start Safety Checks (All boxes must be checked before proceeding)</h3>
                     </div>
                     <div class="grid md:grid-cols-2 gap-4">
-                        <label class="flex items-start gap-3 gp-4 border border-slate-200 rounded-lg hover:bg-slate-50">
+                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
                             <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
                             <span>
-                                <span id="text-13" class="font-medium text-slate-900" style="color: white;"></span>
-                                <p id="text-14" class="text-sm text-slate-500" style="color: white;"></p>
+                                <span class="font-medium text-slate-900" style="color: white;">Lockout/Tagout devices removed</span>
+                                <p class="text-sm text-slate-500" style="color: white;">Verify all maintenance locks are cleared and the logbook is signed off.</p>
                             </span>
                         </label>
                         <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
                             <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
                             <span>
-                                <span id="text-15" class="font-medium text-slate-900" style="color: white;"></span>
-                                <p id="text-16" class="text-sm text-slate-500" style="color: white;"></p>
+                                <span class="font-medium text-slate-900" style="color: white;">Guarding and barriers in place</span>
+                                <p class="text-sm text-slate-500" style="color: white;">Inspect cage doors, laser curtains, and interlocks for tampering or damage.</p>
                             </span>
                         </label>
                         <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
                             <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
                             <span>
-                                <span id="text-17" class="font-medium text-slate-900" style="color: white;"></span>
-                                <p id="text-18" class="text-sm text-slate-500" style="color: white;"></p>
+                                <span class="font-medium text-slate-900" style="color: white;">Emergency stop buttons tested</span>
+                                <p class="text-sm text-slate-500" style="color: white;">Ensure all e-stop buttons latch and reset correctly along the conveyor.</p>
                             </span>
                         </label>
                         <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
                             <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
                             <span>
-                                <span id="text-19" class="font-medium text-slate-900" style="color: white;"></span>
-                                <p id="text-20" class="text-sm text-slate-500" style="color: white;"></p>
+                                <span class="font-medium text-slate-900" style="color: white;">Compressed air lines inspected</span>
+                                <p class="text-sm text-slate-500" style="color: white;">Check for leaks, trip hazards, and that regulators are set to approved PSI.</p>
                             </span>
                         </label>
                     </div>
@@ -217,7 +217,6 @@
         </section>
     </main>
 
-    <script src="encrypt.js"></script>
     <script>
         document.getElementById('current-date').textContent = new Date().toLocaleDateString(undefined, {
             weekday: 'long',
