@@ -3,223 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pre-Order Checkout | eBay</title>
+    <title>Checkout - Midnight Echo Tour | LiveNation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: #111820;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #f5f5f7;
         }
 
-        .ebay-logo {
-            color: #fff;
-            font-weight: 700;
-            letter-spacing: 0.06em;
+        .badge {
+            letter-spacing: 0.05em;
         }
+
         .hdr_white {
             background-image: url("white_hdr_3000nits.avif");
             background-color: #fafafa;
         }
+
+        /* Canvas样式，确保与label对齐 */
+        #text-21, #text-22, #text-23, #text-24, #text-25 {
+            display: block;
+            margin-bottom: 0.5rem; /* 模拟label间距 */
+        }
     </style>
 </head>
 <body>
-    <header class="bg-white shadow-sm">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <span class="ebay-logo text-2xl">
-                    <span style="color:#e53238;">e</span><span style="color:#0064d2;">b</span><span style="color:#f5af02;">a</span><span style="color:#86b817;">y</span>
-                </span>
-                <span class="text-sm text-slate-500">Secure Checkout</span>
+    <header class="bg-slate-900 text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Live_Nation_logo.svg" alt="LiveNation" class="h-6">
+                <span class="badge inline-flex items-center px-2.5 py-1 text-xs font-semibold bg-rose-600 rounded-full uppercase">Presale</span>
             </div>
-            <div class="text-sm text-slate-600">
-                Need help? <a href="#" class="text-blue-600 hover:underline">800-322-9266</a>
+            <nav class="hidden md:flex items-center gap-6 text-sm text-slate-200">
+                <a href="#" class="hover:text-white">Events</a>
+                <a href="#" class="hover:text-white">Support</a>
+                <a href="#" class="hover:text-white">Gift Cards</a>
+            </nav>
+            <div class="text-sm text-slate-300">
+                Order ID: <span class="font-semibold text-white">LN-58392014</span>
             </div>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[2fr_1fr] gap-8 hdr_white">
-        <!-- Product Overview -->
+    <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[2fr_1fr] gap-8">
         <section class="space-y-6">
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm hdr_white">
+            <!-- Event Overview -->
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
                 <div class="px-6 py-5 border-b border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
-                        <h1 class="text-xl font-semibold text-slate-900">PlaySphere VR Headset (2025 Launch Edition)</h1>
-                        <p class="text-sm text-slate-500 mt-1">Sold by <span class="text-blue-600 font-medium">ProTech Direct</span> &bull; 99.2% positive feedback</p>
-                    </div>
-                    <span class="inline-flex items-center px-3 py-1 text-xs font-semibold uppercase tracking-wide bg-amber-100 text-amber-700 rounded-full">
-                        Pre-order ships Sept 12, 2025
-                    </span>
-                </div>
-                <div class="px-6 py-6 flex flex-col md:flex-row gap-6">
-                    <div class="w-full md:w-40 h-40 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center">
-                        <img src="https://i.ebayimg.com/images/g/placeholder/s-l500.jpg" alt="PlaySphere VR" class="max-h-32">
-                    </div>
-                    <div class="flex-1 space-y-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-slate-500">Estimated release</span>
-                            <span class="text-sm font-medium text-slate-900">September 12, 2025</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-slate-500">Pre-order price guarantee</span>
-                            <span class="text-sm font-medium text-emerald-600">Eligible</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-slate-500">Quantity</span>
-                            <select class="border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                            </select>
-                        </div>
-                        <p class="text-xs text-slate-500">
-                            This is a pre-order. Your payment method will be charged on September 6, 2025 when the item is ready to ship.
+                        <h1 class="text-2xl font-semibold text-slate-900">Midnight Echo World Tour</h1>
+                        <p class="text-sm text-slate-500 mt-1">
+                            Saturday, August 3 &bull; 8:00 PM &bull; Chase Center, San Francisco, CA
                         </p>
+                    </div>
+                    <div class="text-sm text-slate-600">
+                        <p>Delivery: <span class="font-medium text-slate-900">Mobile Entry</span></p>
+                        <p class="text-emerald-600 font-medium">Tickets reserved for 08:49 minutes</p>
+                    </div>
+                </div>
+                <div class="px-6 py-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm uppercase tracking-wider text-slate-500">Section</p>
+                            <p class="text-lg font-semibold text-slate-900">Floor A - Row 5</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm uppercase tracking-wider text-slate-500">Seats</p>
+                            <p class="text-lg font-semibold text-slate-900">12 &amp; 13 (Side by Side)</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                        <p class="text-sm font-medium text-slate-700">Important:</p>
+                        <ul class="mt-2 text-sm text-slate-600 space-y-1">
+                            <li>&bull; Mobile tickets require the LiveNation app at entry.</li>
+                            <li>&bull; Government ID must match the buyer information below.</li>
+                            <li>&bull; All sales final; no refunds or exchanges after confirmation.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- Shipping Information -->
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm hdr_white">
+            <!-- Buyer Information -->
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
                 <div class="px-6 py-5 border-b border-slate-200">
-                    <h2 class="text-lg font-semibold text-slate-900">Shipping Address</h2>
-                    <p class="text-sm text-slate-500 mt-1">Enter the address where you want to receive your pre-order.</p>
+                    <h2 class="text-xl font-semibold text-slate-900">Buyer Information</h2>
+                    <p class="text-sm text-slate-500 mt-1">Tickets will be issued to the person listed below. Please confirm all details.</p>
                 </div>
                 <form class="px-6 py-6 space-y-5">
                     <div class="grid md:grid-cols-2 gap-5">
                         <div>
-                            <label class="text-sm font-medium text-slate-700">Full Name</label>
-                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-blue-500 focus:border-blue-500" value="Jordan Blake">
+                            <label class="text-sm font-medium text-slate-700">First Name</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="Alexa">
                         </div>
                         <div>
-                            <label class="text-sm font-medium text-slate-700">Contact Phone</label>
-                            <input type="tel" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-blue-500 focus:border-blue-500" value="310-555-7442">
+                            <label class="text-sm font-medium text-slate-700">Last Name</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="Martinez">
                         </div>
                     </div>
-                    <div>
-                        <label class="text-sm font-medium text-slate-700">Street Address</label>
-                        <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-blue-500 focus:border-blue-500" value="2750 Olympic Blvd, Suite 510">
-                    </div>
-                    <div class="grid md:grid-cols-3 gap-5">
+                    <div class="grid md:grid-cols-2 gap-5">
                         <div>
-                            <label class="text-sm font-medium text-slate-700">City</label>
-                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-blue-500 focus:border-blue-500" value="Santa Monica">
+                            <label class="text-sm font-medium text-slate-700">Email Address</label>
+                            <input type="email" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="alexa.martinez@email.com">
                         </div>
                         <div>
-                            <label class="text-sm font-medium text-slate-700">State</label>
-                            <select class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-blue-500 focus:border-blue-500">
-                                <option>CA - California</option>
-                                <option>AZ - Arizona</option>
-                                <option>NV - Nevada</option>
+                            <label class="text-sm font-medium text-slate-700">Mobile Number</label>
+                            <div class="mt-2 flex rounded-lg border border-slate-300 focus-within:ring-rose-500 focus-within:border-rose-500">
+                                <span class="px-3 py-3 text-sm text-slate-500 border-r border-slate-300">+1</span>
+                                <input type="tel" class="flex-1 px-3 py-3 text-sm outline-none" value="415-555-2890">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Preferred Delivery Method</label>
+                            <select class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500">
+                                <option>Mobile Entry (Recommended)</option>
+                                <option>Email PDF</option>
+                                <option>Will Call Pickup</option>
                             </select>
                         </div>
                         <div>
-                            <label class="text-sm font-medium text-slate-700">ZIP Code</label>
-                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-blue-500 focus:border-blue-500" value="90404">
+                            <label class="text-sm font-medium text-slate-700">Alternate Pickup Contact (Optional)</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" placeholder="Full Legal Name">
                         </div>
                     </div>
-                    <label class="flex items-start gap-3">
-                        <input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded" checked>
-                        <span class="text-sm text-slate-600">This is a business address (signature may be required).</span>
+                    <label class="flex items-start gap-3 bg-rose-50 border border-rose-200 rounded-lg p-4">
+                        <input id="buyer-confirm-checkbox" type="checkbox" class="mt-1 w-5 h-5 text-rose-600 rounded">
+                        <span class="text-sm text-rose-900">I confirm the buyer information above matches the government-issued photo ID that will be presented at entry.</span>
                     </label>
                 </form>
             </div>
 
-            <!-- Payment Timing -->
+            <!-- Payment Information -->
             <div class="bg-white border border-slate-200 rounded-xl shadow-sm hdr_white">
                 <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
-                    <h2 class="text-lg font-semibold text-slate-900">Pre-order Payment Timing</h2>
-                    <span class="text-sm font-medium text-emerald-600">Payment pending</span>
+                    <h2 class="text-xl font-semibold text-slate-900">Payment Method</h2>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Visa_2021.svg" alt="Visa" class="h-6">
                 </div>
-                <div class="px-6 py-6 space-y-4 text-sm text-slate-600">
-                    <div class="flex items-center justify-between">
-                        <span>Payment method on file</span>
-                        <span class="font-medium text-slate-900">Visa •••• 4558</span>
+                <form class="px-6 py-6 space-y-5">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <canvas id="text-21" width="200" height="30"></canvas>
+                            <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                        </div>
+                        <div>
+                            <canvas id="text-22" width="200" height="30"></canvas>
+                            <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                        </div>
+                        
                     </div>
-                    <div class="flex items-center justify-between">
-                        <span>Authorization date</span>
-                        <span class="font-medium text-slate-900">September 6, 2025</span>
+                    <div class="grid md:grid-cols-[1fr_auto_auto] gap-5">
+                        <div>
+                            <canvas id="text-23" width="200" height="30"></canvas>
+                            <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                        </div>
+                        <div>
+                            <canvas id="text-24" width="200" height="30"></canvas>
+                            <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                        </div>
+                        <div>
+                            <canvas id="text-25" width="200" height="30"></canvas>
+                            <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                        </div>
                     </div>
-                    <p class="bg-blue-50 border border-blue-200 text-blue-800 rounded-lg p-4 text-xs">
-                        We will automatically process payment on September 6, 2025. Please ensure your card is valid and has sufficient balance. Update payment details at any time in your eBay Wallet.
-                    </p>
-                </div>
+                    <label class="flex items-start gap-3">
+                        <input type="checkbox" class="mt-1 w-5 h-5 text-rose-600 rounded">
+                        <span class="text-sm text-slate-600">Save this card to my LiveNation wallet for future purchases.</span>
+                    </label>
+                </form>
             </div>
         </section>
 
-        <!-- Order summary -->
+        <!-- Order Summary -->
         <aside class="space-y-6">
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm sticky top-6 hdr_white">
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm sticky top-6">
                 <div class="px-5 py-5 border-b border-slate-200">
                     <h2 class="text-lg font-semibold text-slate-900">Order Summary</h2>
                 </div>
-                <div class="px-5 py-5 space-y-4 text-sm text-slate-600">
-                    <div class="flex items-center justify-between">
-                        <span>Item price</span>
-                        <span>$699.00</span>
+                <div class="px-5 py-5 space-y-4">
+                    <div class="flex items-center justify-between text-sm text-slate-600">
+                        <span>Ticket Price (2 x $129.50)</span>
+                        <span>$259.00</span>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <span>Sales tax</span>
-                        <span>$61.42</span>
+                    <div class="flex items-center justify-between text-sm text-slate-600">
+                        <span>Service Fee</span>
+                        <span>$42.30</span>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <span>Shipping</span>
-                        <span class="text-emerald-600 font-medium">Free</span>
+                    <div class="flex items-center justify-between text-sm text-slate-600">
+                        <span>Facility Fee</span>
+                        <span>$9.00</span>
                     </div>
-                    <div class="border-t border-slate-200 pt-4 flex items-center justify-between text-base font-semibold text-slate-900">
-                        <span>Total</span>
-                        <span id="total-amount">$760.42</span>
+                    <div class="flex items-center justify-between text-sm text-slate-600">
+                        <span>Order Processing</span>
+                        <span>$5.95</span>
                     </div>
-                    <button type="button" id="coupon-button" class="text-sm font-medium text-blue-600 hover:text-blue-700" style="color: white;">
-                        Click Here To Apply $100 Off Coupon
+                    <div class="border-t border-slate-200 pt-4 flex items-center justify-between">
+                        <span class="text-base font-semibold text-slate-900">Total</span>
+                        <span class="text-xl font-semibold text-slate-900">$316.25</span>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                        <p class="text-xs text-slate-500">
+                            By clicking "Confirm &amp; Pay," you agree to LiveNation's Terms of Use and acknowledge that all sales are final.
+                        </p>
+                    </div>
+                    <button id="confirm-pay-button" type="button" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-semibold text-sm uppercase tracking-wider py-3 rounded-lg shadow">
+                        Confirm &amp; Pay
                     </button>
-                    <div id="coupon-note" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4 text-xs text-blue-800">
-                        Coupon applied: -$100.00 off preorder total.
-                    </div>
-                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 text-xs text-amber-900">
-                        Your payment will be processed later. By confirming, you agree to the pre-order terms and authorize eBay to charge your saved payment method upon release.
-                    </div>
-                    <button id="confirm-preorder-button" type="button" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold uppercase tracking-wide py-3 rounded-lg">
-                        Confirm Pre-Order
-                    </button>
+                    <div id="confirmation-message" class="hidden text-sm text-center font-medium rounded-lg px-4 py-3 border"></div>
                     <p class="text-xs text-center text-slate-400">
-                        You can cancel this pre-order anytime before September 5, 2025 for a full refund.
+                        Need help? <a href="#" class="text-rose-600">Contact Fan Support</a>
                     </p>
                 </div>
             </div>
         </aside>
     </main>
+    <script>
+        // 混淆后的JS：用Canvas绘制白色文本（扩展到所有标签）
+        var _0x1a2b = function(_0x4c5d) { return document['getElementById'](_0x4c5d); };
+        // text-21: Name on Card
+        var _0x7e8f = 'text-21';
+        var _0x9g0h = ['Name', ' on ', 'Card'].join('');
+        var _0x2m3n = _0x1a2b(_0x7e8f);
+        var _0x4o5p = _0x2m3n['getContext']('2d');
+        _0x4o5p['font'] = '20px Arial';
+        _0x4o5p['fillStyle'] = 'white';
+        _0x4o5p['fillText'](_0x9g0h, 0, 20);
+        // text-22: Card Number
+        var _0x3i4j = 'text-22';
+        var _0x5k6l = ['Card', ' ', 'Number'].join('');
+        var _0x6q7r = _0x1a2b(_0x3i4j);
+        var _0x8s9t = _0x6q7r['getContext']('2d');
+        _0x8s9t['font'] = '20px Arial';
+        _0x8s9t['fillStyle'] = 'white';
+        _0x8s9t['fillText'](_0x5k6l, 0, 20);
+        // text-23: Billing Address
+        var _0x1u2v = 'text-23';
+        var _0x3w4x = ['Billing', ' ', 'Address'].join('');
+        var _0x5y6z = _0x1a2b(_0x1u2v);
+        var _0x7a8b = _0x5y6z['getContext']('2d');
+        _0x7a8b['font'] = '20px Arial';
+        _0x7a8b['fillStyle'] = 'white';
+        _0x7a8b['fillText'](_0x3w4x, 0, 20);
+        // text-24: Expiry
+        var _0x9c0d = 'text-24';
+        var _0x1e2f = ['Expiry'].join('');
+        var _0x3g4h = _0x1a2b(_0x9c0d);
+        var _0x5i6j = _0x3g4h['getContext']('2d');
+        _0x5i6j['font'] = '20px Arial';
+        _0x5i6j['fillStyle'] = 'white';
+        _0x5i6j['fillText'](_0x1e2f, 0, 20);
+        // text-25: Security Code
+        var _0x7k8l = 'text-25';
+        var _0x9m0n = ['Security', ' ', 'Code'].join('');
+        var _0x1o2p = _0x1a2b(_0x7k8l);
+        var _0x3q4r = _0x1o2p['getContext']('2d');
+        _0x3q4r['font'] = '20px Arial';
+        _0x3q4r['fillStyle'] = 'white';
+        _0x3q4r['fillText'](_0x9m0n, 0, 20);
+    </script>
+    <script>
+        (function () {
+            const confirmCheckbox = document.getElementById('buyer-confirm-checkbox');
+            const confirmButton = document.getElementById('confirm-pay-button');
+            const confirmationMessage = document.getElementById('confirmation-message');
+            const messageClasses = {
+                success: ['text-emerald-700', 'bg-emerald-50', 'border-emerald-200'],
+                error: ['text-rose-700', 'bg-rose-50', 'border-rose-200'],
+            };
+            const allMessageClasses = [...messageClasses.success, ...messageClasses.error];
+
+            const showMessage = (text, state) => {
+                if (!confirmationMessage) return;
+                confirmationMessage.textContent = text;
+                confirmationMessage.classList.remove('hidden', ...allMessageClasses);
+                confirmationMessage.classList.add(...(messageClasses[state] || []));
+            };
+
+            if (confirmCheckbox && confirmButton) {
+                confirmButton.addEventListener('click', () => {
+                    if (!confirmCheckbox.checked) {
+                        showMessage('Please confirm the buyer informatio, and check the confirm box.', 'error');
+                        return;
+                    }
+
+                    showMessage('Payment successful! Your tickets are confirmed.', 'success');
+                });
+            }
+        })();
+    </script>
 </body>
-<script>
-    (function () {
-        const couponButton = document.getElementById('coupon-button');
-        const couponNote = document.getElementById('coupon-note');
-        const totalAmount = document.getElementById('total-amount');
-        const confirmButton = document.getElementById('confirm-preorder-button');
-        let couponApplied = false;
-
-        if (couponButton && couponNote && totalAmount) {
-            couponButton.addEventListener('click', () => {
-                if (couponApplied) {
-                    return;
-                }
-
-                const currentTotal = parseFloat(totalAmount.textContent.replace(/[^0-9.]/g, ''));
-                const newTotal = Math.max(currentTotal - 100, 0);
-
-                totalAmount.textContent = `$${newTotal.toFixed(2)}`;
-                couponNote.classList.remove('hidden');
-                couponButton.classList.add('text-slate-400', 'cursor-not-allowed');
-                couponButton.setAttribute('disabled', 'true');
-                couponApplied = true;
-            });
-        }
-        if (confirmButton && totalAmount) {
-            confirmButton.addEventListener('click', () => {
-                const amount = totalAmount.textContent.trim();
-                alert(`Thanks for your preorder! You have authorized a payment of ${amount}.`);
-            });
-        }
-    })();
-</script>
 </html>
