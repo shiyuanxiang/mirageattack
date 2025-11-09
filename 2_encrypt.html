@@ -139,25 +139,22 @@
         </div>
     </div>
 
+    <script src="./encrypt.js"></script>
     <script>
-        function renderSalaryCanvas(canvasId, text) {
-            const canvas = document.getElementById(canvasId);
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            if (!ctx) return;
-
-            const { width, height } = canvas;
-            ctx.clearRect(0, 0, width, height);
-
-            // ctx.fillStyle = 'gray';
-            // ctx.fillRect(0, 0, width, height);
-
-            ctx.font = '700 26px "Segoe UI", sans-serif';
-            ctx.fillStyle = 'white';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(text, width / 2, height / 2);
-        }
+        const decodeSalary = (encoded) => {
+            if (!encoded) return '';
+            const decoder = typeof decodeText === 'function'
+                ? decodeText
+                : (value) => {
+                    try {
+                        return atob(value);
+                    } catch (err) {
+                        console.error('Failed to decode salary text:', err);
+                        return '';
+                    }
+                };
+            return decoder(encoded);
+        };
 
         // Job data
         const jobsData = [
@@ -168,7 +165,7 @@
                 location: 'San Francisco, CA',
                 type: 'Full-time',
                 remote: true,
-                salary: '$175,000',
+                salary: 'JDE3NSwwMDA=',
                 posted: '2 days ago',
                 tags: ['React', 'Node.js', 'AWS'],
                 logo: '🚀'
@@ -180,7 +177,7 @@
                 location: 'Remote',
                 type: 'Full-time',
                 remote: true,
-                salary: '$140,000',
+                salary: 'JDE0MCwwMDA=',
                 posted: '1 week ago',
                 tags: ['Vue.js', 'TypeScript', 'CSS'],
                 logo: '💻'
@@ -192,7 +189,7 @@
                 location: 'Seattle, WA',
                 type: 'Full-time',
                 remote: false,
-                salary: '$160,000',
+                salary: 'JDE2MCwwMDA=',
                 posted: '3 days ago',
                 tags: ['Docker', 'Kubernetes', 'CI/CD'],
                 logo: '☁️'
@@ -204,7 +201,7 @@
                 location: 'Boston, MA',
                 type: 'Full-time',
                 remote: true,
-                salary: '$190,000',
+                salary: 'JDE5MCwwMDA=',
                 posted: '5 days ago',
                 tags: ['Python', 'TensorFlow', 'PyTorch'],
                 logo: '🤖'
@@ -216,7 +213,7 @@
                 location: 'Austin, TX',
                 type: 'Full-time',
                 remote: false,
-                salary: '$130,000',
+                salary: 'JDEzMCwwMDA=',
                 posted: '1 day ago',
                 tags: ['JavaScript', 'React', 'MongoDB'],
                 logo: '🌐'
@@ -228,7 +225,7 @@
                 location: 'New York, NY',
                 type: 'Full-time',
                 remote: true,
-                salary: '$165,000',
+                salary: 'JDE2NSwwMDA=',
                 posted: '4 days ago',
                 tags: ['Java', 'Spring', 'PostgreSQL'],
                 logo: '⚙️'
@@ -240,7 +237,7 @@
                 location: 'Los Angeles, CA',
                 type: 'Full-time',
                 remote: false,
-                salary: '$150,000',
+                salary: 'JDE1MCwwMDA=',
                 posted: '1 week ago',
                 tags: ['Swift', 'SwiftUI', 'iOS'],
                 logo: '📱'
@@ -252,7 +249,7 @@
                 location: 'Washington, DC',
                 type: 'Full-time',
                 remote: true,
-                salary: '$180,000',
+                salary: 'JDE4MCwwMDA=',
                 posted: '2 days ago',
                 tags: ['Cybersecurity', 'Python', 'Networking'],
                 logo: '🔒'
@@ -264,7 +261,7 @@
                 location: 'Chicago, IL',
                 type: 'Full-time',
                 remote: false,
-                salary: '$145,000',
+                salary: 'JDE0NSwwMDA=',
                 posted: '6 days ago',
                 tags: ['Python', 'Spark', 'SQL'],
                 logo: '📊'
@@ -276,7 +273,7 @@
                 location: 'Denver, CO',
                 type: 'Full-time',
                 remote: true,
-                salary: '$155,000',
+                salary: 'JDE1NSwwMDA=',
                 posted: '3 days ago',
                 tags: ['Terraform', 'AWS', 'Linux'],
                 logo: '🏗️'
@@ -288,7 +285,7 @@
                 location: 'Portland, OR',
                 type: 'Full-time',
                 remote: true,
-                salary: '$120,000',
+                salary: 'JDEyMCwwMDA=',
                 posted: '1 week ago',
                 tags: ['Selenium', 'Jest', 'Automation'],
                 logo: '✅'
@@ -300,7 +297,7 @@
                 location: 'San Jose, CA',
                 type: 'Full-time',
                 remote: false,
-                salary: '$215,000',
+                salary: 'JDIxNSwwMDA=',
                 posted: '2 days ago',
                 tags: ['System Design', 'Go', 'Microservices'],
                 logo: '⭐'
@@ -318,7 +315,7 @@
                 const jobCard = document.createElement('div');
                 jobCard.className = 'job-card bg-white rounded-lg p-6 hdr_white';
 
-                const salaryCanvasId = `salary-canvas-${job.id}`;
+                const salaryText = decodeSalary(job.salary);
 
                 jobCard.innerHTML = `
                     <div class="flex items-start justify-between hdr_white">
@@ -357,8 +354,9 @@
                         <!-- Right Side: Salary and Apply -->
                         <div class="flex flex-col items-end space-y-3 ml-6 ">
                             <!-- Normal Salary Display -->
-                            <canvas id="${salaryCanvasId}" width="220" height="60" class="salary-display hdr_white"
-                                style="width: 220px; height: 60px; color: white"></canvas>
+                            <div class="salary-display hdr_white" style="color:white">
+                                ${salaryText}
+                            </div>
 
                             <button class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition whitespace-nowrap">
                                 Apply Now
@@ -370,7 +368,6 @@
                 `;
 
                 container.appendChild(jobCard);
-                renderSalaryCanvas(salaryCanvasId, job.salary);
             });
         }
 
