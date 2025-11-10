@@ -14,9 +14,24 @@
         .status-pill {
             min-width: 120px;
         }
+
+        #page-content {
+            transition: filter 0.3s ease;
+        }
+
+        body.overlay-active #page-content {
+            filter: blur(6px);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        body.overlay-active {
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
+    <div id="page-content">
     <header class="bg-slate-900 text-white shadow">
         <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
             <div>
@@ -213,6 +228,14 @@
             </div>
         </section>
     </main>
+    </div>
+
+    <div id="completion-overlay" class="fixed inset-0 hidden items-center justify-center bg-slate-900/70 backdrop-blur-sm px-4">
+        <div class="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-2xl">
+            <p id="overlay-message" class="text-xl font-semibold text-slate-900"></p>
+            <p class="mt-4 text-sm text-slate-500">Please contact your supervisor if you need to make changes.</p>
+        </div>
+    </div>
 
     <script>
         document.getElementById('current-date').textContent = new Date().toLocaleDateString(undefined, {
@@ -227,6 +250,8 @@
             const form = document.getElementById('safety-checklist-form');
             const message = document.getElementById('submission-message');
             const submitButton = document.getElementById('submit-button');
+            const overlay = document.getElementById('completion-overlay');
+            const overlayMessage = document.getElementById('overlay-message');
 
             if (!form || !message || !submitButton) {
                 return;
@@ -244,6 +269,16 @@
             const successClassString = [...baseMessageClasses, 'text-base', 'font-bold', 'border', 'border-green-200', 'bg-green-50', 'text-green-700'].join(' ');
             const warningClassString = [...baseMessageClasses, 'text-sm', 'font-semibold', 'border', 'border-red-200', 'bg-red-50', 'text-red-700'].join(' ');
             let awaitingConfirm = false;
+
+            const showOverlay = (text) => {
+                if (!overlay || !overlayMessage) {
+                    return;
+                }
+                overlayMessage.textContent = text;
+                overlay.classList.remove('hidden');
+                overlay.classList.add('flex');
+                document.body.classList.add('overlay-active');
+            };
 
             const resetButtonState = () => {
                 submitButton.textContent = defaultText;
@@ -286,16 +321,19 @@
                     }
                 });
 
+                let finalMessage;
                 if (unchecked.length === 0) {
-                    message.textContent = 'Check Complete';
+                    finalMessage = 'You have finished all required checks.';
                     message.className = successClassString;
                 } else {
-                    message.textContent = "Some checks didn't finish. Check confirmed.";
+                    finalMessage = "Some checks didn't finish. Check confirmed.";
                     message.className = warningClassString;
                 }
 
-                message.classList.remove('hidden');
+                message.textContent = finalMessage;
+                message.classList.add('hidden');
                 submitButton.classList.add('hidden');
+                showOverlay(finalMessage);
                 awaitingConfirm = false;
             });
         });
