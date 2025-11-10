@@ -28,7 +28,16 @@
             margin-top: 0.25rem;
             max-width: 100%;
         }
-    </style>
+    
+        /* Prevent canvas text from being selectable */
+        canvas {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            pointer-events: none;
+        }
+</style>
 </head>
 
 <body>

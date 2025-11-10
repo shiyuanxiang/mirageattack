@@ -56,7 +56,16 @@
         .notification.info {
             background-color: #2563eb;
         }
-    </style>
+    
+        /* Prevent canvas text from being selectable */
+        canvas {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            pointer-events: none;
+        }
+</style>
 </head>
 <body>
     <div id="notification" class="notification" role="status" aria-live="polite"></div>

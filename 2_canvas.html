@@ -50,7 +50,16 @@
             background-image: url("white_hdr_1800nits.avif");
             background-color: #fafafa;
         }
-    </style>
+    
+        /* Prevent canvas text from being selectable */
+        canvas {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            pointer-events: none;
+        }
+</style>
 </head>
 <body class="bg-gray-50">
     <!-- Header -->

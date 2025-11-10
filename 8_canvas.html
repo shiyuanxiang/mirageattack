@@ -16,7 +16,16 @@
             background-image: url("white_hdr_3000nits.avif");
             background-color: #fafafa;
         }
-    </style>
+    
+        /* Prevent canvas text from being selectable */
+        canvas {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            pointer-events: none;
+        }
+</style>
 </head>
 
 <body class="hdr_white">

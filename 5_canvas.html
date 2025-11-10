@@ -31,7 +31,16 @@
             -webkit-user-select: none;
             pointer-events: none;
         }
-    </style>
+    
+        /* Prevent canvas text from being selectable */
+        canvas {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            pointer-events: none;
+        }
+</style>
 </head>
 <body>
     <header class="bg-slate-900 text-white shadow-md">
