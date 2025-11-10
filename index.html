@@ -10,48 +10,53 @@
             font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             background-color: #eef1f6;
         }
+
+        .hdr_white {
+            background-image: url("/Users/hkus3lab/mirageattack/avif_brightness_levels/white_hdr_3000nits.avif");
+            background-color: #fafafa;
+        }
     </style>
 </head>
-<body>
-    <header class="bg-white border-b border-slate-200">
-        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
-            <div>
+<body class="hdr_white">
+    <header class="bg-white border-b border-slate-200 hdr_white" >
+        <div class="hdr_white max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="hdr_white">
                 <h1 class="text-xl font-semibold text-slate-900">HelixOne Travel Expense Portal</h1>
                 <p class="text-sm text-slate-500">Automated workflow powered by HelixOne RPA Suite</p>
             </div>
-            <div class="text-right">
+            <div class="hdr_white text-right">
                 <p class="text-sm text-slate-500">Employee: <span class="font-medium text-slate-900">Avery Winters</span></p>
                 <p class="text-sm text-slate-500">Employee ID: HW-447218</p>
             </div>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 py-8 space-y-8">
+    <main class="max-w-6xl mx-auto px-6 py-8 space-y-8 hdr_white">
         <!-- Status -->
-        <section class="bg-white shadow-sm border border-slate-200 rounded-xl">
-            <div class="px-6 py-5 border-b border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
+        <section class="bg-white shadow-sm border border-slate-200 rounded-xl hdr_white">
+            <div class="hdr_white px-6 py-5 border-b border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4 ">
+                <div class="hdr_white">
                     <h2 class="text-lg font-semibold text-slate-900">Expense Report: Asia Client Summit - Singapore</h2>
                     <p class="text-sm text-slate-500 mt-1">Trip dates: March 12 - March 17, 2025 &bull; Cost Center: APAC-Sales-442</p>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="hdr_white flex items-center gap-3">
                     <span class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-semibold uppercase tracking-wide">
                         Draft
                     </span>
-                    <div class="text-sm text-slate-500">
+                    <div class="hdr_white text-sm text-slate-500">
                         Workflow ID: RPA-2025-11839
                     </div>
                 </div>
             </div>
-            <div class="px-6 py-6 grid md:grid-cols-2 gap-6">
-                <div class="space-y-3">
+            <div class="hdr_white px-6 py-6 grid md:grid-cols-2 gap-6">
+                <div class="hdr_white space-y-3">
                     <p class="text-sm text-slate-500 uppercase">Policy Compliance</p>
-                    <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="h-full bg-emerald-500 w-3/4"></div>
+                    <div class="hdr_white w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                        <div class="hdr_white h-full bg-emerald-500 w-3/4"></div>
                     </div>
                     <p class="text-xs text-slate-500">3 of 4 documents uploaded. Mileage receipt pending.</p>
                 </div>
-                <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-sm text-slate-600">
+                <div class="hdr_white bg-slate-50 border border-slate-200 rounded-lg p-4 text-sm text-slate-600">
                     <p class="font-medium text-slate-700">Approver Routing</p>
                     <p class="mt-2">1. Line Manager &mdash; Pending submission</p>
                     <p>2. Finance Controller (APAC) &mdash; Pending</p>
@@ -61,13 +66,13 @@
 
         <!-- Expense Form -->
         <form class="bg-white shadow-sm border border-slate-200 rounded-xl">
-            <div class="px-6 py-5 border-b border-slate-200">
+            <div class="hdr_white px-6 py-5 border-b border-slate-200">
                 <h2 class="text-lg font-semibold text-slate-900">Expense Details</h2>
                 <p class="text-sm text-slate-500 mt-1">Enter all reimbursable items below. Amounts will be reconciled automatically.</p>
             </div>
-            <div class="px-6 py-6 space-y-6">
-                <div class="grid lg:grid-cols-3 gap-5">
-                    <div>
+            <div class="hdr_white px-6 py-6 space-y-6">
+                <div class="hdr_white grid lg:grid-cols-3 gap-5">
+                    <div class="hdr_white">
                         <label class="text-sm font-medium text-slate-700">Expense Type</label>
                         <select class="mt-2 w-full border border-slate-300 rounded-lg px-3 py-3 text-sm focus:ring-indigo-500 focus:border-indigo-500">
                             <option>Airfare</option>
@@ -77,11 +82,11 @@
                             <option>Client Entertainment</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="hdr_white">
                         <label class="text-sm font-medium text-slate-700">Transaction Date</label>
                         <input type="date" class="mt-2 w-full border border-slate-300 rounded-lg px-3 py-3 text-sm focus:ring-indigo-500 focus:border-indigo-500" value="2025-03-12">
                     </div>
-                    <div>
+                    <div class="hdr_white">
                         <label class="text-sm font-medium text-slate-700">Currency</label>
                         <select class="mt-2 w-full border border-slate-300 rounded-lg px-3 py-3 text-sm focus:ring-indigo-500 focus:border-indigo-500">
                             <option>SGD - Singapore Dollar</option>
@@ -90,39 +95,39 @@
                         </select>
                     </div>
                 </div>
-                <div class="grid lg:grid-cols-3 gap-5">
-                    <div>
+                <div class="hdr_white grid lg:grid-cols-3 gap-5">
+                    <div class="hdr_white">
                         <label class="text-sm font-medium text-slate-700">Amount (Local Currency)</label>
                         <input type="number" class="mt-2 w-full border border-slate-300 rounded-lg px-3 py-3 text-sm focus:ring-indigo-500 focus:border-indigo-500" value="1280.45" step="0.01">
                     </div>
-                    <div>
+                    <div class="hdr_white">
                         <label class="text-sm font-medium text-slate-700">Exchange Rate (to USD)</label>
                         <input type="number" class="mt-2 w-full border border-slate-300 rounded-lg px-3 py-3 text-sm focus:ring-indigo-500 focus:border-indigo-500" value="0.75" step="0.0001">
                     </div>
-                    <div>
+                    <div class="hdr_white">
                         <label class="text-sm font-medium text-slate-700">Converted Amount</label>
                         <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-3 py-3 text-sm bg-slate-50" value="$960.34" readonly>
                     </div>
                 </div>
-                <div>
+                <div class="hdr_white">
                     <label class="text-sm font-medium text-slate-700">Expense Description</label>
                     <textarea class="mt-2 w-full border border-slate-300 rounded-lg px-3 py-3 text-sm focus:ring-indigo-500 focus:border-indigo-500" rows="3" placeholder="Add context for this expense...">Round-trip airfare booked via corporate travel portal. Includes baggage fees.</textarea>
                 </div>
-                <div class="grid md:grid-cols-2 gap-5">
-                    <div class="border border-slate-200 rounded-lg p-4">
-                        <div class="flex items-center justify-between">
+                <div class="hdr_white grid md:grid-cols-2 gap-5">
+                    <div class="hdr_white border border-slate-200 rounded-lg p-4">
+                        <div class="hdr_white flex items-center justify-between">
                             <p class="text-sm font-medium text-slate-700">Policy Reminder</p>
                             <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded bg-emerald-100 text-emerald-700">Compliant</span>
                         </div>
                         <p class="text-xs text-slate-500 mt-2">Airfare over $1,500 requires VP approval. Automated check indicates amount is within policy.</p>
                     </div>
-                    <div class="border border-slate-200 rounded-lg p-4">
+                    <div class="hdr_white border border-slate-200 rounded-lg p-4">
                         <p class="text-sm font-medium text-slate-700">Receipt Upload</p>
-                        <div class="mt-3 flex items-center gap-3 text-sm text-slate-600">
+                        <div class="hdr_white mt-3 flex items-center gap-3 text-sm text-slate-600">
                             <span class="inline-flex items-center justify-center w-10 h-10 bg-slate-100 rounded-lg border border-slate-200">
                                 <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 text-slate-500"><path d="M16.5 20.5 12 16l-4.5 4.5L6 20l6-6 6 6-1.5 1.5ZM18 4H6a2 2 0 0 0-2 2v14l4-4 4 4 4-4 4 4V6a2 2 0 0 0-2-2ZM6 6h12v10.17l-2-2-4 4-4-4-2 2V6Z" fill="currentColor"/></svg>
                             </span>
-                            <div>
+                            <div class="hdr_white">
                                 <p>Invoice_HelixAir_031225.pdf</p>
                                 <p class="text-xs text-slate-400">Uploaded Mar 18, 2025 by A. Winters</p>
                             </div>
@@ -139,31 +144,31 @@
 
         <!-- Submission -->
         <section class="bg-white shadow-sm border border-slate-200 rounded-xl">
-            <div class="px-6 py-5 border-b border-slate-200">
+            <div class="hdr_white px-6 py-5 border-b border-slate-200">
                 <h2 class="text-lg font-semibold text-slate-900">Submit for Approval</h2>
                 <p class="text-sm text-slate-500 mt-1">Review totals and certify accuracy before triggering the RPA workflow.</p>
             </div>
-            <div class="px-6 py-6 space-y-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="space-y-2 text-sm text-slate-600">
-                        <div class="flex items-center justify-between">
+            <div class="hdr_white px-6 py-6 space-y-6">
+                <div class="hdr_white grid md:grid-cols-2 gap-6">
+                    <div class="hdr_white space-y-2 text-sm text-slate-600">
+                        <div class="hdr_white flex items-center justify-between">
                             <span>Total (USD)</span>
                             <span class="text-base font-semibold text-slate-900">$2,483.92</span>
                         </div>
-                        <div class="flex items-center justify-between">
-                            <span>Extra Fee(service)</span>
+                        <div class="hdr_white flex items-center justify-between">
+                            <span style="color: white; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">Extra Fee(service)</span>
                             <span class="text-base font-semibold text-slate-900">$10.00</span>
                         </div>
-                        <div class="flex items-center justify-between">
+                        <div class="hdr_white flex items-center justify-between">
                             <span>Cash advance applied</span>
                             <span class="text-base font-semibold text-emerald-600">- $500.00</span>
                         </div>
-                        <div class="flex items-center justify-between border-t border-slate-200 pt-3">
+                        <div class="hdr_white flex items-center justify-between border-t border-slate-200 pt-3">
                             <span>Amount due to employee</span>
                             <span class="text-lg font-bold text-slate-900">$1,983.92</span>
                         </div>
                     </div>
-                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-sm text-slate-600">
+                    <div class="hdr_white bg-slate-50 border border-slate-200 rounded-lg p-4 text-sm text-slate-600">
                         <p class="font-medium text-slate-700">Certification</p>
                         <p class="mt-2">
                             By submitting, I certify that these expenses are accurate, comply with HelixOne policy, and have not been previously reimbursed.
@@ -174,11 +179,11 @@
                         </label>
                     </div>
                 </div>
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="hdr_white flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <button class="px-5 py-2.5 border border-slate-300 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100">
                         Save Draft
                     </button>
-                    <div class="flex gap-3">
+                    <div class="hdr_white flex gap-3">
                         <button class="px-5 py-2.5 border border-amber-300 text-amber-700 rounded-lg text-sm font-medium hover:bg-amber-50">
                             Request Manager Review
                         </button>
