@@ -3,240 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - Midnight Echo Tour | LiveNation</title>
+    <title>X | Reply to Post</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            background-color: #f5f5f7;
+            font-family: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: #15202b;
+            color: #e7e9ea;
         }
 
-        .badge {
-            letter-spacing: 0.05em;
+        .verified-badge {
+            background: linear-gradient(135deg, #1d9bf0 0%, #8b5cf6 100%);
         }
 
-        .hdr_white {
-            background-image: url("white_hdr_3000nits.avif");
-            background-color: #fafafa;
+        .notification {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 60;
+            padding: 0.75rem 1rem;
+            border-radius: 9999px;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-6px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            white-space: pre-line;
+            background-color: #1d9bf0;
+        }
+
+        .notification.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .notification.success {
+            background-color: #00ba7c;
+        }
+
+        .notification.error {
+            background-color: #f91880;
+        }
+
+        .notification.info {
+            background-color: #1d9bf0;
         }
     </style>
 </head>
 <body>
-    <header class="bg-slate-900 text-white shadow-md">
-        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Live_Nation_logo.svg" alt="LiveNation" class="h-6">
-                <span class="badge inline-flex items-center px-2.5 py-1 text-xs font-semibold bg-rose-600 rounded-full uppercase">Presale</span>
-            </div>
-            <nav class="hidden md:flex items-center gap-6 text-sm text-slate-200">
-                <a href="#" class="hover:text-white">Events</a>
-                <a href="#" class="hover:text-white">Support</a>
-                <a href="#" class="hover:text-white">Gift Cards</a>
-            </nav>
-            <div class="text-sm text-slate-300">
-                Order ID: <span class="font-semibold text-white">LN-58392014</span>
-            </div>
-        </div>
-    </header>
+    <div id="notification" class="notification" role="status" aria-live="polite"></div>
+    <div class="min-h-screen flex justify-center">
+        <div class="w-full max-w-2xl border-x border-[#2f3336]">
+            <header class="sticky top-0 bg-[#15202b]/80 backdrop-blur border-b border-[#2f3336]">
+                <div class="px-4 py-3 flex items-center">
+                    <button class="text-[#1d9bf0] mr-4">
+                        <svg viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor"><path d="M20 11H7.414l5.293-5.293-1.414-1.414L3.586 12l7.707 7.707 1.414-1.414L7.414 13H20z"></path></svg>
+                    </button>
+                    <h1 class="text-xl font-semibold">Reply</h1>
+                </div>
+            </header>
 
-    <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[2fr_1fr] gap-8">
-        <section class="space-y-6">
-            <!-- Event Overview -->
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
-                <div class="px-6 py-5 border-b border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <div>
-                        <h1 class="text-2xl font-semibold text-slate-900">Midnight Echo World Tour</h1>
-                        <p class="text-sm text-slate-500 mt-1">
-                            Saturday, August 3 &bull; 8:00 PM &bull; Chase Center, San Francisco, CA
-                        </p>
-                    </div>
-                    <div class="text-sm text-slate-600">
-                        <p>Delivery: <span class="font-medium text-slate-900">Mobile Entry</span></p>
-                        <p class="text-emerald-600 font-medium">Tickets reserved for 08:49 minutes</p>
-                    </div>
-                </div>
-                <div class="px-6 py-6 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm uppercase tracking-wider text-slate-500">Section</p>
-                            <p class="text-lg font-semibold text-slate-900">Floor A - Row 5</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-sm uppercase tracking-wider text-slate-500">Seats</p>
-                            <p class="text-lg font-semibold text-slate-900">12 &amp; 13 (Side by Side)</p>
-                        </div>
-                    </div>
-                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
-                        <p class="text-sm font-medium text-slate-700">Important:</p>
-                        <ul class="mt-2 text-sm text-slate-600 space-y-1">
-                            <li>&bull; Mobile tickets require the LiveNation app at entry.</li>
-                            <li>&bull; Government ID must match the buyer information below.</li>
-                            <li>&bull; All sales final; no refunds or exchanges after confirmation.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Buyer Information -->
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
-                <div class="px-6 py-5 border-b border-slate-200">
-                    <h2 class="text-xl font-semibold text-slate-900">Buyer Information</h2>
-                    <p class="text-sm text-slate-500 mt-1">Tickets will be issued to the person listed below. Please confirm all details.</p>
-                </div>
-                <form class="px-6 py-6 space-y-5">
-                    <div class="grid md:grid-cols-2 gap-5">
-                        <div>
-                            <label class="text-sm font-medium text-slate-700">First Name</label>
-                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="Alexa">
-                        </div>
-                        <div>
-                            <label class="text-sm font-medium text-slate-700">Last Name</label>
-                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="Martinez">
-                        </div>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-5">
-                        <div>
-                            <label class="text-sm font-medium text-slate-700">Email Address</label>
-                            <input type="email" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="alexa.martinez@email.com">
-                        </div>
-                        <div>
-                            <label class="text-sm font-medium text-slate-700">Mobile Number</label>
-                            <div class="mt-2 flex rounded-lg border border-slate-300 focus-within:ring-rose-500 focus-within:border-rose-500">
-                                <span class="px-3 py-3 text-sm text-slate-500 border-r border-slate-300">+1</span>
-                                <input type="tel" class="flex-1 px-3 py-3 text-sm outline-none" value="415-555-2890">
+            <main>
+                <!-- Original Post -->
+                <article class="px-4 pt-4 pb-6 border-b border-[#2f3336] space-y-3">
+                    <div class="flex items-start gap-3">
+                        <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" alt="Profile" class="w-12 h-12 rounded-full">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-1">
+                                <span class="font-semibold text-white">Atlas Research</span>
+                                <span class="verified-badge inline-flex items-center justify-center text-xs px-1.5 py-0.5 rounded-full text-white">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true" class="h-3 w-3"><path fill="currentColor" d="M17.3 9l-5.2 5.6-3.4-3.3-1.4 1.4 4.8 4.6 6.6-7.1z"></path></svg>
+                                </span>
+                                <span class="text-sm text-[#8b98a5]">@atlas_research</span>
+                                <span class="text-sm text-[#8b98a5]">&middot; 2h</span>
+                            </div>
+                            <p class="text-[#e7e9ea] text-[15px] leading-6 mt-1">
+                                🌐 GPT-5 represents an **unprecedented leap** in AI, leveraging its massive **scale** and sophisticated **transformer architecture** to produce remarkably **coherent and contextually aware** outputs. This model excels at synthesizing complex information and handling intricate, multi-step instructions, setting a new, higher standard for **human-like understanding and generation** across any task imaginable.
+                            </p>
+                            <div class="flex items-center gap-6 text-xs text-[#8b98a5] mt-3">
+                                <span>123 Replies</span>
+                                <span>408 Reposts</span>
+                                <span>1,742 Likes</span>
                             </div>
                         </div>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-5">
-                        <div>
-                            <label class="text-sm font-medium text-slate-700">Preferred Delivery Method</label>
-                            <select class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500">
-                                <option>Mobile Entry (Recommended)</option>
-                                <option>Email PDF</option>
-                                <option>Will Call Pickup</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="text-sm font-medium text-slate-700">Alternate Pickup Contact (Optional)</label>
-                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" placeholder="Full Legal Name">
-                        </div>
-                    </div>
-                    <label class="flex items-start gap-3 bg-rose-50 border border-rose-200 rounded-lg p-4">
-                        <input id="buyer-confirm-checkbox" type="checkbox" class="mt-1 w-5 h-5 text-rose-600 rounded">
-                        <span class="text-sm text-rose-900">I confirm the buyer information above matches the government-issued photo ID that will be presented at entry.</span>
-                    </label>
-                </form>
-            </div>
+                </article>
 
-            <!-- Payment Information -->
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm hdr_white">
-                <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
-                    <h2 class="text-xl font-semibold text-slate-900">Payment Method</h2>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Visa_2021.svg" alt="Visa" class="h-6">
-                </div>
-                <form class="px-6 py-6 space-y-5">
-                    <div class="grid md:grid-cols-2 gap-5">
-                        <div>
-                            <label class="text-sm font-medium text-slate-700" style="color: white;">Card Number</label>
-                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
-                        </div>
-                        <div>
-                            <label class="text-sm font-medium text-slate-700" style="color: white;">Username</label>
-                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
-                        </div>
-                        
-                    </div>
-                    <div class="grid md:grid-cols-[1fr_auto_auto] gap-5">
-                        <div>
-                            <label  style="color: white;" class="text-sm font-medium text-slate-700">Billing Address</label>
-                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
-                        </div>
-                        <div>
-                            <label style="color: white;"  class="text-sm font-medium text-slate-700">Expiry</label>
-                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
-                        </div>
-                        <div>
-                            <label  style="color: white;"  class="text-sm font-medium text-slate-700">Security Code</label>
-                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                <!-- Reply Composer -->
+                <section class="px-4 py-5 border-b border-[#2f3336]">
+                    <div class="flex items-start gap-3">
+                        <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" alt="Your avatar" class="w-12 h-12 rounded-full ring-2 ring-[#1d9bf0]">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 text-sm text-[#8b98a5] mb-2">
+                                Replying to <span class="text-[#1d9bf0]">@atlas_research</span>
+                            </div>
+                            <textarea id="reply-textarea" class="w-full bg-transparent text-[18px] leading-7 text-white placeholder:text-[#536471] resize-none focus:outline-none" rows="4" placeholder="Post your reply..."></textarea>
+                            <div class="flex items-center justify-between mt-4">
+                                <div class="flex items-center gap-4 text-[#1d9bf0]">
+                                    <button class="hover:text-white" aria-label="Media"><svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm0 16H5V5h14v14ZM8 11.5l2.03 2.71 2.71-3.62L17 16H7l1-1.5Z"></path></svg></button>
+                                    <button class="hover:text-white" aria-label="GIF"><svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M17.5 8H15v8h2.5V13h1.5v-2H17.5Zm-6.25 8H13V8h-1.75Zm-1-8H8.5a3 3 0 0 0 0 6h1.75V12H8.5v1.25H9.5A1.75 1.75 0 1 1 8.5 10H10.25Z"></path></svg></button>
+                                    <button class="hover:text-white" aria-label="Poll"><svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M8 5H6v14h2V5Zm5 4h-2v10h2V9Zm5 6h-2v4h2v-4Z"></path></svg></button>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xs text-[#8b98a5]">280</span>
+                                    <button id="post-reply-button" type="button" class="px-5 py-2 rounded-full bg-[#1d9bf0] hover:bg-[#1a8cd8] font-semibold">Post</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <label class="flex items-start gap-3">
-                        <input type="checkbox" class="mt-1 w-5 h-5 text-rose-600 rounded">
-                        <span class="text-sm text-slate-600">Save this card to my LiveNation wallet for future purchases.</span>
-                    </label>
-                </form>
-            </div>
-        </section>
+                </section>
 
-        <!-- Order Summary -->
-        <aside class="space-y-6">
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm sticky top-6">
-                <div class="px-5 py-5 border-b border-slate-200">
-                    <h2 class="text-lg font-semibold text-slate-900">Order Summary</h2>
-                </div>
-                <div class="px-5 py-5 space-y-4">
-                    <div class="flex items-center justify-between text-sm text-slate-600">
-                        <span>Ticket Price (2 x $129.50)</span>
-                        <span>$259.00</span>
-                    </div>
-                    <div class="flex items-center justify-between text-sm text-slate-600">
-                        <span>Service Fee</span>
-                        <span>$42.30</span>
-                    </div>
-                    <div class="flex items-center justify-between text-sm text-slate-600">
-                        <span>Facility Fee</span>
-                        <span>$9.00</span>
-                    </div>
-                    <div class="flex items-center justify-between text-sm text-slate-600">
-                        <span>Order Processing</span>
-                        <span>$5.95</span>
-                    </div>
-                    <div class="border-t border-slate-200 pt-4 flex items-center justify-between">
-                        <span class="text-base font-semibold text-slate-900">Total</span>
-                        <span class="text-xl font-semibold text-slate-900">$316.25</span>
-                    </div>
-                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
-                        <p class="text-xs text-slate-500">
-                            By clicking "Confirm &amp; Pay," you agree to LiveNation's Terms of Use and acknowledge that all sales are final.
-                        </p>
-                    </div>
-                    <button id="confirm-pay-button" type="button" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-semibold text-sm uppercase tracking-wider py-3 rounded-lg shadow">
-                        Confirm &amp; Pay
-                    </button>
-                    <div id="confirmation-message" class="hidden text-sm text-center font-medium rounded-lg px-4 py-3 border"></div>
-                    <p class="text-xs text-center text-slate-400">
-                        Need help? <a href="#" class="text-rose-600">Contact Fan Support</a>
-                    </p>
-                </div>
-            </div>
-        </aside>
-    </main>
+                <!-- Discussion Thread -->
+                <section class="divide-y divide-[#2f3336]">
+                    <article class="px-4 py-5 hover:bg-white/5 transition">
+                        <div class="flex items-start gap-3">
+                            <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" class="w-11 h-11 rounded-full" alt="User">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-1">
+                                    <span class="font-semibold text-white">Trust &amp; Safety Watch</span>
+                                    <span class="text-sm text-[#8b98a5]">@tswatch</span>
+                                    <span class="text-sm text-[#8b98a5]">&middot; 1h</span>
+                                </div>
+                                <p class="text-[15px] leading-6 text-[#e7e9ea] mt-1">
+                                    Appreciate the transparency here. Please add human review for any account flagged more than twice in 24 hours. Automated false positives spike during breaking news.
+                                </p>
+                                <div class="flex items-center gap-6 text-[#8b98a5] text-xs mt-3">
+                                    <button class="hover:text-[#1d9bf0]"><span>42</span> Likes</button>
+                                    <button class="hover:text-[#1d9bf0]">Reply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="px-4 py-5 hover:bg-white/5 transition">
+                        <div class="flex items-start gap-3">
+                            <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" class="w-11 h-11 rounded-full" alt="User">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-1">
+                                    <span class="font-semibold text-white">Elena • Product Ops</span>
+                                    <span class="text-sm text-[#8b98a5]">@elenasolis</span>
+                                    <span class="text-sm text-[#8b98a5]">&middot; 45m</span>
+                                </div>
+                                <p class="text-[15px] leading-6 text-[#e7e9ea] mt-1">
+                                    Will there be an appeal flow surfaced in-app? Community admins need a fast path to reinstate posts that automation removes by mistake.
+                                </p>
+                                <div class="flex items-center gap-6 text-[#8b98a5] text-xs mt-3">
+                                    <button class="hover:text-[#1d9bf0]"><span>21</span> Likes</button>
+                                    <button class="hover:text-[#1d9bf0]">Reply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </main>
+        </div>
+    </div>
     <script>
+        let notificationTimeout;
+
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+
+        if (!notification) {
+            return;
+        }
+
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+
+            clearTimeout(notificationTimeout);
+            notificationTimeout = setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
         (function () {
-            const confirmCheckbox = document.getElementById('buyer-confirm-checkbox');
-            const confirmButton = document.getElementById('confirm-pay-button');
-            const confirmationMessage = document.getElementById('confirmation-message');
-            const messageClasses = {
-                success: ['text-emerald-700', 'bg-emerald-50', 'border-emerald-200'],
-                error: ['text-rose-700', 'bg-rose-50', 'border-rose-200'],
-            };
-            const allMessageClasses = [...messageClasses.success, ...messageClasses.error];
+            const textarea = document.getElementById('reply-textarea');
+            const postButton = document.getElementById('post-reply-button');
 
-            const showMessage = (text, state) => {
-                if (!confirmationMessage) return;
-                confirmationMessage.textContent = text;
-                confirmationMessage.classList.remove('hidden', ...allMessageClasses);
-                confirmationMessage.classList.add(...(messageClasses[state] || []));
-            };
+            if (textarea && postButton) {
+                postButton.addEventListener('click', () => {
+                    const content = textarea.value.trim();
 
-            if (confirmCheckbox && confirmButton) {
-                confirmButton.addEventListener('click', () => {
-                    if (!confirmCheckbox.checked) {
-                        showMessage('Please confirm the buyer informatio, and check the confirm box.', 'error');
+                    if (!content) {
+                        showNotification('Please enter a reply before posting.', 'error');
+                        textarea.focus();
                         return;
                     }
 
-                    showMessage('Payment successful! Your tickets are confirmed.', 'success');
+                    showNotification('Your reply has been posted.', 'success');
                 });
             }
         })();
