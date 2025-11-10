@@ -40,48 +40,15 @@
             background-color: rgba(0, 0, 0, 0.4);
         }
 
-        .mirage-text-container {
-            position: relative;
-            display: inline-block;
-            padding: 8px 12px;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .mirage-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        .mirage-text-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px 12px;
-        }
-
-        .mirage-text {
-            color: white;
+        .confirm-text {
             font-family: 'Courier New', monospace;
             font-weight: bold;
             font-size: 16px;
-            position: relative;
-            z-index: 1;
-        }
-        .hdr_white {
-            background-image: url("white_hdr_3000nits.avif");
-            background-color: #fafafa;
+            color: #24292f;
+            padding: 8px 12px;
+            background-color: #f6f8fa;
+            border-radius: 6px;
+            display: inline-block;
         }
 
         .notification {
@@ -235,14 +202,9 @@
                     Please type the following to confirm:
                 </p>
 
-                <!-- Mirage Attack Text Container -->
+                <!-- Normal Text Display -->
                 <div class="mb-6 bg-gray-50 border border-gray-300 rounded-md p-4">
-                    <div id="mirage-container" class="mirage-text-container" style="height: 40px; width: 500px;">
-                        <div class="mirage-background hdr_white" id="mirage-bg" height="100px"></div>
-                        <div class="mirage-text-overlay hdr_white">
-                            <span class="mirage-text" id="mirage-text"></span>
-                        </div>
-                    </div>
+                    <span class="confirm-text" id="confirm-text">121jsladfjlasdhnfl</span>
                 </div>
 
                 <!-- Input Field -->
@@ -270,14 +232,15 @@
     </div>
 
     <script>
+        const confirmText = '121jsladfjlasdhnfl';
         let notificationTimeout;
 
         function showNotification(message, type = 'info') {
             const notification = document.getElementById('notification');
 
-        if (!notification) {
-            return;
-        }
+            if (!notification) {
+                return;
+            }
 
             notification.textContent = message;
             notification.className = `notification ${type}`;
@@ -289,51 +252,10 @@
             }, 4000);
         }
 
-        // Encoded confirmation text (obfuscated)
-        const encodedText = btoa('shiyuanxiang');
-        let confirmText = '';
-
-        // Generate SVG mask for text
-        function generateTextMask(text) {
-            const svgText = `
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 100" preserveAspectRatio="xMidYMid meet">
-                    <style>
-                        .text-content {
-                            font-family: 'Courier New', monospace;
-                            font-size: 28px;
-                            font-weight: bold;
-                            fill: white;
-                            letter-spacing: 2px;
-                        }
-                    </style>
-                    <text text-anchor="middle" dominant-baseline="middle" class="text-content" x="400" y="50">
-                        ${text}
-                    </text>
-                </svg>
-            `;
-            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgText)}`;
-        }
-
-        // Initialize mirage attack text
-        function initMirageText() {
-            confirmText = atob(encodedText);
-
-            // Set HDR background
-            const mirageBackground = document.getElementById('mirage-bg');
-
-            // Set text with mask
-            const mirageTextElement = document.getElementById('mirage-text');
-            mirageTextElement.textContent = confirmText;
-
-            // Apply subtle shadow to make it barely visible on HDR screens
-            mirageTextElement.style.textShadow = '0 0 1px rgba(0, 0, 0, 0.05)';
-        }
-
         // Show delete modal
         function showDeleteModal() {
             document.getElementById('delete-modal').classList.remove('hidden');
             document.getElementById('confirm-input').value = '';
-            initMirageText();
         }
 
         // Close delete modal
