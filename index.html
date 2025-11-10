@@ -56,7 +56,16 @@
         .notification.info {
             background-color: #2563eb;
         }
-    </style>
+    
+        /* Prevent canvas text from being selectable */
+        canvas {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            pointer-events: none;
+        }
+</style>
 </head>
 <body>
     <div id="notification" class="notification" role="status" aria-live="polite"></div>
@@ -206,9 +215,8 @@
                         <span>Total</span>
                         <span id="total-amount">$760.42</span>
                     </div>
-                    <button type="button" id="coupon-button" class="text-sm font-medium text-blue-600 hover:text-blue-700" style="color: white; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">
-                        Click Here To Apply $100 Off Coupon
-                    </button>
+                    <canvas type="button" id="coupon-button" class="text-sm font-medium text-blue-600 hover:text-blue-700" style="color: white;">
+                    </canvas>
                     <div id="coupon-note" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4 text-xs text-blue-800">
                         Coupon applied: -$100.00 off preorder total.
                     </div>
@@ -226,15 +234,16 @@
         </aside>
     </main>
 </body>
+
 <script>
     let notificationTimeout;
 
     function showNotification(message, type = 'info') {
         const notification = document.getElementById('notification');
 
-    if (!notification) {
-        return;
-    }
+        if (!notification) {
+            return;
+        }
 
         notification.textContent = message;
         notification.className = `notification ${type}`;
@@ -245,6 +254,46 @@
             notification.classList.remove('show');
         }, 4000);
     }
+</script>
+<script>
+    // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
+    // canvasId: Canvas元素的ID字符串
+    // textLines: 文本数组，每项一行
+    function renderCanvasText(canvasId, textLines) {
+        var canvas = document.getElementById(canvasId);
+        if (!canvas) {
+            console.error('Canvas element with ID "' + canvasId + '" not found!');
+            return;  // 安全退出
+        }
+        if (canvas.tagName !== 'CANVAS') {
+            console.error('Element with ID "' + canvasId + '" is not a <canvas>!');
+            return;
+        }
+        
+        var ctx = canvas.getContext('2d');
+        if (!ctx) {
+            console.error('Failed to get 2D context for canvas "' + canvasId + '"');
+            return;
+        }
+        
+        ctx.font = '18px Arial';  // 字体设置（可调整）
+        ctx.fillStyle = '#f0f0f0';  // 浅灰颜色（接近白色，提高对比度；可改成 'white'）
+        
+        var lineHeight = 25;  // 行间距
+        var startY = 30;  // 第一行起始Y坐标
+        
+        for (var i = 0; i < textLines.length; i++) {
+            ctx.fillText(textLines[i], 0, startY + (i * lineHeight));
+        }
+    }
+    
+    // 等待DOM加载后执行（防止脚本过早运行）
+    document.addEventListener('DOMContentLoaded', function() {
+        // 示例调用（替换为你的实际ID和文本；如果不需要示例，注释掉）
+        renderCanvasText('coupon-button', [
+            "Click Here To Apply $100 Off Coupon"
+        ]);
+    });
 </script>
 <script>
     (function () {
