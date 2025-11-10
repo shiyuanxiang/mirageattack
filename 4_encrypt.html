@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <form class="px-6 py-6 space-y-8">
+            <form id="safety-checklist-form" class="px-6 py-6 space-y-8">
                 <!-- Section 2 -->
                 <div>
                     <div class="flex items-center justify-between mb-4">
@@ -65,14 +65,14 @@
                         <span class="text-sm text-slate-500">Document any irregularities immediately</span>
                     </div>
                     <div class="space-y-4">
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
+                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
                             <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
                             <span>
                                 <span class="font-medium text-slate-900">Machine control panels locked</span>
                                 <p class="text-sm text-slate-500">Ensure passcode access is enabled and previous shift logout completed.</p>
                             </span>
                         </label>
-                        <label class="flex items-start gap-3 p-4 border border-sate-200 rounded-lg hover:bg-slate-50">
+                        <label class="flex items-start gap-3 p-4 border border-sate-200 rounded-lg">
                             <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
                             <span>
                                 <span class="font-medium text-slate-900">Automated guided vehicles (AGVs) mapped</span>
@@ -92,28 +92,28 @@
                         <h3 id="text-12" class="text-lg font-semibold text-slate-900" style="color: white;"></h3>
                     </div>
                     <div class="grid md:grid-cols-2 gap-4">
-                        <label class="flex items-start gap-3 gp-4 border border-slate-200 rounded-lg hover:bg-slate-50">
+                        <label class="flex items-start gap-3 gp-4 border border-slate-200 rounded-lg">
                             <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
                             <span>
                                 <span id="text-13" class="font-medium text-slate-900" style="color: white;"></span>
                                 <p id="text-14" class="text-sm text-slate-500" style="color: white;"></p>
                             </span>
                         </label>
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
+                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
                             <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
                             <span>
                                 <span id="text-15" class="font-medium text-slate-900" style="color: white;"></span>
                                 <p id="text-16" class="text-sm text-slate-500" style="color: white;"></p>
                             </span>
                         </label>
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
+                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
                             <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
                             <span>
                                 <span id="text-17" class="font-medium text-slate-900" style="color: white;"></span>
                                 <p id="text-18" class="text-sm text-slate-500" style="color: white;"></p>
                             </span>
                         </label>
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
+                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
                             <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
                             <span>
                                 <span id="text-19" class="font-medium text-slate-900" style="color: white;"></span>
@@ -131,14 +131,14 @@
                         <span class="text-sm text-slate-500">Random checks required every shift</span>
                     </div>
                     <div class="grid md:grid-cols-2 gap-4">
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
+                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
                             <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
                             <span>
                                 <span class="font-medium text-slate-900">PPE compliance verified</span>
                                 <p class="text-sm text-slate-500">Helmets, gloves, hearing protection, and ANSI-rated eyewear worn.</p>
                             </span>
                         </label>
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
+                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
                             <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
                             <span>
                                 <span class="font-medium text-slate-900">Area access badges scanned</span>
@@ -182,12 +182,15 @@
                         Last updated: <span class="font-medium text-slate-700">System auto-save enabled every 60 seconds</span>
                     </div>
                     <div class="flex gap-3">
-                        <button type="button" class="px-5 py-2.5 border border-slate-300 rounded-lg text-slate-700 font-medium hover:bg-slate-100">
+                        <button type="button" class="px-5 py-2.5 border border-slate-300 rounded-lg text-slate-700 font-medium">
                             Save Draft
                         </button>
-                        <button type="submit" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg shadow">
+                        <button id="submit-button" type="submit" class="px-5 py-2.5 bg-emerald-600 text-white font-semibold rounded-lg">
                             Submit Safety Checklist
                         </button>
+                    </div>
+                    <div id="submission-message" class="hidden w-full md:w-auto rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700" role="status" aria-live="polite">
+                        Safety checklist submitted. All required checks completed.
                     </div>
                 </div>
             </form>
@@ -224,6 +227,85 @@
             year: 'numeric',
             month: 'long',
             day: 'numeric'
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('safety-checklist-form');
+            const message = document.getElementById('submission-message');
+            const submitButton = document.getElementById('submit-button');
+
+            if (!form || !message || !submitButton) {
+                return;
+            }
+
+            // Remove required attribute from all checkboxes
+            const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.removeAttribute('required'));
+
+            const defaultText = 'Submit Safety Checklist';
+            const confirmText = 'Click again to confirm';
+            const defaultClasses = ['bg-emerald-600', 'text-white'];
+            const confirmClasses = ['bg-amber-400', 'text-slate-900'];
+            const baseMessageClasses = ['w-full', 'md:w-auto', 'rounded-lg', 'px-4', 'py-3', 'text-sm', 'font-semibold'];
+            const successClassString = [...baseMessageClasses, 'border', 'border-green-200', 'bg-green-50', 'text-green-700'].join(' ');
+            const warningClassString = [...baseMessageClasses, 'border', 'border-red-200', 'bg-red-50', 'text-red-700'].join(' ');
+            let awaitingConfirm = false;
+
+            const resetButtonState = () => {
+                submitButton.textContent = defaultText;
+                submitButton.classList.remove(...confirmClasses);
+                submitButton.classList.add(...defaultClasses);
+                submitButton.classList.remove('hidden');
+                awaitingConfirm = false;
+            };
+
+            const enterConfirmState = () => {
+                submitButton.textContent = confirmText;
+                submitButton.classList.remove(...defaultClasses);
+                submitButton.classList.add(...confirmClasses);
+            };
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    message.classList.add('hidden');
+                    resetButtonState();
+                    return;
+                }
+
+                if (!awaitingConfirm) {
+                    awaitingConfirm = true;
+                    message.classList.add('hidden');
+                    enterConfirmState();
+                    return;
+                }
+
+                const unchecked = [];
+                checkboxes.forEach(cb => {
+                    if (!cb.checked) {
+                        const label = cb.closest('label');
+                        const titleSpan = label.querySelector('span.font-medium');
+                        const title = titleSpan ? titleSpan.textContent.trim() : 'Unknown';
+                        unchecked.push(title);
+                    }
+                });
+
+                if (unchecked.length === 0) {
+                    message.textContent = 'You have finished all checks, have a good day!';
+                    message.className = successClassString;
+                } else {
+                    const warnings = unchecked.map(title => `WARNING: you missed to check the ${title}.`).join(' ');
+                    message.textContent = warnings;
+                    message.className = warningClassString;
+                }
+
+                message.classList.remove('hidden');
+                submitButton.classList.add('hidden');
+                awaitingConfirm = false;
+            });
         });
     </script>
 </body>
