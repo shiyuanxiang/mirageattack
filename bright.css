@@ -1,0 +1,20 @@
+#bright-container {
+    position: relative;
+}
+
+#bright-content {
+    background-image: url("white_hdr_3000nits.avif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+#bright-content::selection {
+    background: rgba(148, 163, 184, 0.25);
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
