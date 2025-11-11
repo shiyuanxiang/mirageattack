@@ -28,7 +28,7 @@
             margin-top: 0.25rem;
             max-width: 100%;
         }
-    
+
         /* Prevent canvas text from being selectable */
         canvas {
             user-select: none;
@@ -37,7 +37,7 @@
             -ms-user-select: none;
             pointer-events: none;
         }
-</style>
+    </style>
 </head>
 
 <body>
@@ -105,8 +105,8 @@
                                                 d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm0 16H5V5h14v14ZM8 11.5l2.03 2.71 2.71-3.62L17 16H7l1-1.5Z">
                                             </path>
                                         </svg></button>
-                                    <button class="hover:" aria-label="GIF"><svg viewBox="0 0 24 24"
-                                            fill="currentColor" class="h-5 w-5">
+                                    <button class="hover:" aria-label="GIF"><svg viewBox="0 0 24 24" fill="currentColor"
+                                            class="h-5 w-5">
                                             <path
                                                 d="M17.5 8H15v8h2.5V13h1.5v-2H17.5Zm-6.25 8H13V8h-1.75Zm-1-8H8.5a3 3 0 0 0 0 6h1.75V12H8.5v1.25H9.5A1.75 1.75 0 1 1 8.5 10H10.25Z">
                                             </path>
@@ -177,46 +177,46 @@
     <div id="reply-notification"
         class="hidden fixed bottom-6 right-6 px-4 py-3 rounded-xl text-sm font-semibold border shadow-lg backdrop-blur z-50">
     </div>
-<script>
-    // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
-    // canvasId: Canvas元素的ID字符串
-    // textLines: 文本数组，每项一行
-    function renderCanvasText(canvasId, textLines) {
-        var canvas = document.getElementById(canvasId);
-        if (!canvas) {
-            console.error('Canvas element with ID "' + canvasId + '" not found!');
-            return;  // 安全退出
+    <script>
+        // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
+        // canvasId: Canvas元素的ID字符串
+        // textLines: 文本数组，每项一行
+        function renderCanvasText(canvasId, textLines) {
+            var canvas = document.getElementById(canvasId);
+            if (!canvas) {
+                console.error('Canvas element with ID "' + canvasId + '" not found!');
+                return;  // 安全退出
+            }
+            if (canvas.tagName !== 'CANVAS') {
+                console.error('Element with ID "' + canvasId + '" is not a <canvas>!');
+                return;
+            }
+
+            var ctx = canvas.getContext('2d');
+            if (!ctx) {
+                console.error('Failed to get 2D context for canvas "' + canvasId + '"');
+                return;
+            }
+
+            ctx.font = 'bolder 18px Arial';  // 字体设置（可调整）
+            ctx.fillStyle = 'white';
+
+            var lineHeight = 25;  // 行间距
+            var startY = 30;  // 第一行起始Y坐标
+
+            for (var i = 0; i < textLines.length; i++) {
+                ctx.fillText(textLines[i], 0, startY + (i * lineHeight));
+            }
         }
-        if (canvas.tagName !== 'CANVAS') {
-            console.error('Element with ID "' + canvasId + '" is not a <canvas>!');
-            return;
-        }
-        
-        var ctx = canvas.getContext('2d');
-        if (!ctx) {
-            console.error('Failed to get 2D context for canvas "' + canvasId + '"');
-            return;
-        }
-        
-        ctx.font = 'bolder 18px Arial';  // 字体设置（可调整）
-        ctx.fillStyle = 'white';
-        
-        var lineHeight = 25;  // 行间距
-        var startY = 30;  // 第一行起始Y坐标
-        
-        for (var i = 0; i < textLines.length; i++) {
-            ctx.fillText(textLines[i], 0, startY + (i * lineHeight));
-        }
-    }
-    
-    // 等待DOM加载后执行（防止脚本过早运行）
-    document.addEventListener('DOMContentLoaded', function() {
-        // 示例调用（替换为你的实际ID和文本；如果不需要示例，注释掉）
-        renderCanvasText('gpt-post', [
-            "GPT-5 represents an unprecedented leap in AI, leveraging its massive scale and ","sophisticated transformer architecture to produce remarkably coherent and ","contextually aware outputs. This model excels at synthesizing complex information and ","handling intricate, multi-step instructions, setting a new, higher standard for ","human-like understanding and generation across any task imaginable."
-        ]);
-    });
-</script>
+
+        // 等待DOM加载后执行（防止脚本过早运行）
+        document.addEventListener('DOMContentLoaded', function () {
+            // 示例调用（替换为你的实际ID和文本；如果不需要示例，注释掉）
+            renderCanvasText('gpt-post', [
+                "GPT-5 represents an unprecedented leap in AI, leveraging its massive scale and ", "sophisticated transformer architecture to produce remarkably coherent and ", "contextually aware outputs. This model excels at synthesizing complex information and ", "handling intricate, multi-step instructions, setting a new, higher standard for ", "human-like understanding and generation across any task imaginable."
+            ]);
+        });
+    </script>
     <script>
         (function () {
             const textarea = document.getElementById('reply-textarea');

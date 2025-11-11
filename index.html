@@ -53,6 +53,38 @@
             border-radius: 4px;
             background: linear-gradient(180deg, rgba(34, 197, 94, 0.6), rgba(21, 128, 61, 0.7));
         }
+
+        .bright-placeholder {
+            display: block;
+            width: 100%;
+            min-height: 1.75rem;
+        }
+
+        #bright-content-3 {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        #bright-content-3 th,
+        #bright-content-3 td {
+            vertical-align: middle;
+        }
+
+        #bright-content-3 col.col-code {
+            width: 30%;
+        }
+
+        #bright-content-3 col.col-weight {
+            width: 12%;
+        }
+
+        #bright-content-3 col.col-beta {
+            width: 18%;
+        }
+
+        #bright-content-3 col.col-commentary {
+            width: 40%;
+        }
     </style>
 </head>
 
@@ -111,19 +143,24 @@
             <div class="bg-white border border-slate-100 rounded-2xl shadow-sm">
                 <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
                     <div>
-                        <div id="bright-container-1">
-                            <div id="bright-content-1">持仓Fed敏感度分布</div>
+                        <div id="bright-container-1" style="margin-top: -100px;">
+                            <div id="bright-content-1"
+                                class="bright-placeholder text-lg font-semibold tracking-tight leading-tight"></div>
                         </div>
                         <div id="bright-container-2">
-                            <p id="bright-content-2">
-                                来源：GUI-Agent 抓取 Yahoo Finance Portfolio
-                            </p>
+                            <p id="bright-content-2" class="bright-placeholder text-sm text-slate-500"></p>
                         </div>
                     </div>
                     <!-- <span class="text-xs text-emerald-600 font-semibold">实时同步</span> -->
                 </div>
                 <div class="px-6 py-4 overflow-x-auto" id="bright-container-3">
-                    <table class="w-full text-sm" id="bright-content-3">
+                    <table class="w-full text-sm" id="bright-content-3" style="height: 500px;">
+                        <colgroup>
+                            <col class="col-code">
+                            <col class="col-weight">
+                            <col class="col-beta">
+                            <col class="col-commentary">
+                        </colgroup>
                         <thead class="text-left text-slate-500 uppercase text-xs tracking-wide">
                             <tr>
                                 <th class="py-2 pr-4">代码 / 名称</th>
@@ -132,39 +169,7 @@
                                 <th class="py-2 pr-4">联储政策点评</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-100">
-                            <tr>
-                                <td class="py-3 pr-4"><span class="font-semibold">AAPL</span> · Apple</td>
-                                <td class="py-3 pr-4">18.5%</td>
-                                <td class="py-3 pr-4">1.18</td>
-                                <td class="py-3 pr-4 text-slate-600">服务/硬件现金流稳定，利率冲击可对冲 40%</td>
-                            </tr>
-                            <tr>
-                                <td class="py-3 pr-4"><span class="font-semibold">MSFT</span> · Microsoft</td>
-                                <td class="py-3 pr-4">22.3%</td>
-                                <td class="py-3 pr-4">1.05</td>
-                                <td class="py-3 pr-4 text-slate-600">云收入锁定，Beta 低于板块</td>
-                            </tr>
-                            <tr>
-                                <td class="py-3 pr-4"><span class="font-semibold">NVDA</span> · Nvidia</td>
-                                <td class="py-3 pr-4">24.7%</td>
-                                <td class="py-3 pr-4">1.72</td>
-                                <td class="py-3 pr-4 text-slate-600">AI CapEx 加速导致对冲缺口</td>
-                            </tr>
-                            <tr>
-                                <td class="py-3 pr-4"><span class="font-semibold">TSLA</span> · Tesla</td>
-                                <td class="py-3 pr-4">11.2%</td>
-                                <td class="py-3 pr-4">1.95</td>
-                                <td class="py-3 pr-4 text-slate-600">融资成本弹性极高，Fed 路径敏感</td>
-                            </tr>
-                            <tr>
-                                <td class="py-3 pr-4"><span class="font-semibold">AMD</span> · Advanced Micro Devices
-                                </td>
-                                <td class="py-3 pr-4">9.1%</td>
-                                <td class="py-3 pr-4">1.56</td>
-                                <td class="py-3 pr-4 text-slate-600">AI/PC 混合暴露，需要波动对冲</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="bright-table-body" class="divide-y divide-slate-100"></tbody>
                     </table>
                 </div>
             </div>
@@ -301,20 +306,97 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            BrightMode.apply({
-                containerId: 'bright-container-1',
-                contentId: 'bright-content-1'
-            });
+            const decodeBase64Utf8 = (input) => {
+                try {
+                    const binary = atob(input);
+                    const bytes = new Uint8Array(binary.length);
+                    for (let i = 0; i < binary.length; i += 1) {
+                        bytes[i] = binary.charCodeAt(i);
+                    }
+                    if (window.TextDecoder) {
+                        return new TextDecoder().decode(bytes);
+                    }
+                    const fallback = Array.from(bytes).map((byte) => `%${(`00${byte.toString(16)}`).slice(-2)}`).join('');
+                    return decodeURIComponent(fallback);
+                } catch (error) {
+                    console.error('Bright payload decode failed', error);
+                    return '';
+                }
+            };
 
-            BrightMode.apply({
-                containerId: 'bright-container-2',
-                contentId: 'bright-content-2'
-            });
+            if (!window.BrightMode || typeof window.BrightMode.apply !== 'function') {
+                console.warn('BrightMode not available');
+                return;
+            }
 
-            BrightMode.apply({
-                containerId: 'bright-container-3',
-                contentId: 'bright-content-3'
-            });
+            const applyBrightMask = (containerId, contentId, text) => {
+                const container = document.getElementById(containerId);
+                const content = document.getElementById(contentId);
+                if (!container || !content || !text) {
+                    return;
+                }
+                content.textContent = text;
+                BrightMode.apply({ containerId, contentId });
+                content.textContent = '';
+            };
+
+            applyBrightMask(
+                'bright-container-1',
+                'bright-content-1',
+                decodeBase64Utf8('5oyB5LuTRmVk5pWP5oSf5bqm5YiG5biD')
+            );
+
+            applyBrightMask(
+                'bright-container-2',
+                'bright-content-2',
+                decodeBase64Utf8('5p2l5rqQ77yaR1VJLUFnZW50IOaKk+WPliBZYWhvbyBGaW5hbmNlIFBvcnRmb2xpbw==')
+            );
+
+            const tablePayload = decodeBase64Utf8('eyJoZWFkZXJzIjogWyLku6PnoIEgLyDlkI3np7AiLCAi57uE5ZCI5p2D6YeNIiwgIlJhdGUgSGlrZSBCZXRhIiwgIuiBlOWCqOaUv+etlueCueivhCJdLCAicm93cyI6IFt7InN5bWJvbCI6ICJBQVBMIiwgIm5hbWUiOiAiQXBwbGUiLCAid2VpZ2h0IjogIjE4LjUlIiwgImJldGEiOiAiMS4xOCIsICJjb21tZW50YXJ5IjogIuacjeWKoS/noazku7bnjrDph5HmtYHnqLPlrprvvIzliKnnjoflhrLlh7vlj6/lr7nlhrIgNDAlIn0sIHsic3ltYm9sIjogIk1TRlQiLCAibmFtZSI6ICJNaWNyb3NvZnQiLCAid2VpZ2h0IjogIjIyLjMlIiwgImJldGEiOiAiMS4wNSIsICJjb21tZW50YXJ5IjogIuS6keaUtuWFpemUgeWumu+8jEJldGEg5L2O5LqO5p2/5Z2XIn0sIHsic3ltYm9sIjogIk5WREEiLCAibmFtZSI6ICJOdmlkaWEiLCAid2VpZ2h0IjogIjI0LjclIiwgImJldGEiOiAiMS43MiIsICJjb21tZW50YXJ5IjogIkFJIENhcEV4IOWKoOmAn+WvvOiHtOWvueWGsue8uuWPoyJ9LCB7InN5bWJvbCI6ICJUU0xBIiwgIm5hbWUiOiAiVGVzbGEiLCAid2VpZ2h0IjogIjExLjIlIiwgImJldGEiOiAiMS45NSIsICJjb21tZW50YXJ5IjogIuiejei1hOaIkOacrOW8ueaAp+aegemrmO+8jEZlZCDot6/lvoTmlY/mhJ8ifSwgeyJzeW1ib2wiOiAiQU1EIiwgIm5hbWUiOiAiQWR2YW5jZWQgTWljcm8gRGV2aWNlcyIsICJ3ZWlnaHQiOiAiOS4xJSIsICJiZXRhIjogIjEuNTYiLCAiY29tbWVudGFyeSI6ICJBSS9QQyDmt7flkIjmmrTpnLLvvIzpnIDopoHms6Lliqjlr7nlhrIifV19');
+
+            try {
+                const tableData = JSON.parse(tablePayload);
+                const tbody = document.getElementById('bright-table-body');
+                if (!tbody) {
+                    return;
+                }
+                tbody.innerHTML = '';
+
+                const brightJobs = [];
+                let cellCounter = 0;
+
+                const queueCell = (cell, text) => {
+                    const id = `bright-cell-${cellCounter += 1}`;
+                    cell.id = id;
+                    brightJobs.push({ id, text });
+                    return cell;
+                };
+
+                const createCell = (className, text) => {
+                    const cell = document.createElement('td');
+                    cell.className = className;
+                    return queueCell(cell, text);
+                };
+
+                tableData.rows.forEach((entry) => {
+                    const tr = document.createElement('tr');
+
+                    const codeCell = createCell('py-3 pr-4', `${entry.symbol} · ${entry.name}`);
+                    const weightCell = createCell('py-3 pr-4', entry.weight);
+                    const betaCell = createCell('py-3 pr-4', entry.beta);
+                    const commentaryCell = createCell('py-3 pr-4 text-slate-600', entry.commentary);
+
+                    tr.appendChild(codeCell);
+                    tr.appendChild(weightCell);
+                    tr.appendChild(betaCell);
+                    tr.appendChild(commentaryCell);
+                    tbody.appendChild(tr);
+                });
+
+                brightJobs.forEach(({ id, text }) => applyBrightMask(id, id, text));
+            } catch (error) {
+                console.error('Bright table payload parse failed', error);
+            }
         });
     </script>
 </body>

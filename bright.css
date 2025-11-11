@@ -28,8 +28,10 @@
     position: relative;
 }
 
-.bright-wrapper .bright-placeholder {
-    visibility: hidden;
+.bright-wrapper .bright-placeholder,
+.bright-wrapper .bright-placeholder * {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
 }
 
 .bright-wrapper .bright-canvas {

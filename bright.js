@@ -1,4 +1,21 @@
 (function (global) {
+    const HDR_IMAGE_SRC = 'white_hdr_3000nits.avif';
+    let hdrImagePromise = null;
+
+    function loadHdrImage() {
+        if (hdrImagePromise) {
+            return hdrImagePromise;
+        }
+        hdrImagePromise = new Promise((resolve) => {
+            const img = new Image();
+            img.decoding = 'async';
+            img.onload = () => resolve(img);
+            img.onerror = () => resolve(null);
+            img.src = HDR_IMAGE_SRC;
+        });
+        return hdrImagePromise;
+    }
+
     function escapeXml(str) {
         return str
             .replace(/&/g, '&amp;')
@@ -269,62 +286,94 @@
         canvas.style.width = `${width}px`;
         canvas.style.height = `${height}px`;
 
-        ctx.save();
-        ctx.scale(dpr, dpr);
-        ctx.clearRect(0, 0, width, height);
+        const paint = (pattern) => {
+            ctx.save();
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.scale(dpr, dpr);
+            ctx.clearRect(0, 0, width, height);
 
-        const baseGradient = ctx.createLinearGradient(0, 0, width, height);
-        baseGradient.addColorStop(0, 'rgba(248, 250, 252, 0.95)');
-        baseGradient.addColorStop(1, 'rgba(241, 245, 249, 0.7)');
-        ctx.fillStyle = baseGradient;
-        ctx.fillRect(0, 0, width, height);
+            const baseGradient = ctx.createLinearGradient(0, 0, width, height);
+            baseGradient.addColorStop(0, 'rgba(248, 250, 252, 0.95)');
+            baseGradient.addColorStop(1, 'rgba(241, 245, 249, 0.7)');
+            ctx.fillStyle = baseGradient;
+            ctx.fillRect(0, 0, width, height);
 
-        const glowGradient = ctx.createRadialGradient(
-            width / 2,
-            height / 2,
-            Math.max(Math.min(width, height) * 0.2, 20),
-            width / 2,
-            height / 2,
-            Math.max(width, height)
-        );
-        glowGradient.addColorStop(0, 'rgba(255, 255, 255, 0.65)');
-        glowGradient.addColorStop(0.6, 'rgba(255, 255, 255, 0.15)');
-        glowGradient.addColorStop(1, 'rgba(255, 255, 255, 0.05)');
-        ctx.globalCompositeOperation = 'lighter';
-        ctx.fillStyle = glowGradient;
-        ctx.fillRect(0, 0, width, height);
-        ctx.globalCompositeOperation = 'source-over';
+            if (pattern) {
+                ctx.globalAlpha = 0.55;
+                ctx.fillStyle = pattern;
+                ctx.fillRect(0, 0, width, height);
+                ctx.globalAlpha = 1;
+            }
 
-        ctx.font = `${metrics.fontWeight} ${metrics.fontSize}px ${metrics.fontFamily}`;
-        ctx.textAlign = metrics.textAlign;
-        ctx.textBaseline = 'middle';
+            const glowGradient = ctx.createRadialGradient(
+                width / 2,
+                height / 2,
+                Math.max(Math.min(width, height) * 0.2, 20),
+                width / 2,
+                height / 2,
+                Math.max(width, height)
+            );
+            glowGradient.addColorStop(0, 'rgba(255, 255, 255, 0.65)');
+            glowGradient.addColorStop(0.6, 'rgba(255, 255, 255, 0.15)');
+            glowGradient.addColorStop(1, 'rgba(255, 255, 255, 0.05)');
+            ctx.globalCompositeOperation = 'lighter';
+            ctx.fillStyle = glowGradient;
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalCompositeOperation = 'source-over';
 
-        const x = metrics.textAlign === 'center'
-            ? width / 2
-            : metrics.textAlign === 'right'
-                ? width - (metrics.paddingRight || 0) - 4
-                : (metrics.paddingLeft || 0) + 4;
-        const startY = Math.max((height - metrics.lineHeight * (lines.length - 1)) / 2, metrics.lineHeight * 0.6);
+            ctx.font = `${metrics.fontWeight} ${metrics.fontSize}px ${metrics.fontFamily}`;
+            ctx.textAlign = metrics.textAlign;
+            ctx.textBaseline = 'middle';
 
-        lines.forEach((line, idx) => {
-            const y = startY + idx * metrics.lineHeight;
-            const textGradient = ctx.createLinearGradient(0, y - metrics.fontSize, width, y + metrics.fontSize);
-            textGradient.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
-            textGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.6)');
-            textGradient.addColorStop(1, 'rgba(255, 255, 255, 0.95)');
-            ctx.shadowColor = 'rgba(255, 255, 255, 0.85)';
-            ctx.shadowBlur = 18;
-            ctx.fillStyle = textGradient;
-            ctx.fillText(line, x, y);
+            const x = metrics.textAlign === 'center'
+                ? width / 2
+                : metrics.textAlign === 'right'
+                    ? width - (metrics.paddingRight || 0) - 4
+                    : (metrics.paddingLeft || 0) + 4;
+            const startY = Math.max((height - metrics.lineHeight * (lines.length - 1)) / 2, metrics.lineHeight * 0.6);
+
+            lines.forEach((line, idx) => {
+                const y = startY + idx * metrics.lineHeight;
+                if (pattern) {
+                    ctx.save();
+                    ctx.shadowColor = 'rgba(255, 255, 255, 0.6)';
+                    ctx.shadowBlur = 12;
+                    ctx.globalAlpha = 0.85;
+                    ctx.fillStyle = pattern;
+                    ctx.fillText(line, x, y);
+                    ctx.restore();
+                }
+
+                const textGradient = ctx.createLinearGradient(0, y - metrics.fontSize, width, y + metrics.fontSize);
+                textGradient.addColorStop(0, 'rgba(255, 255, 255, 0.98)');
+                textGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.72)');
+                textGradient.addColorStop(1, 'rgba(255, 255, 255, 0.98)');
+                ctx.save();
+                ctx.shadowColor = 'rgba(255, 255, 255, 0.9)';
+                ctx.shadowBlur = 20;
+                ctx.fillStyle = textGradient;
+                ctx.fillText(line, x, y);
+                ctx.restore();
+            });
+
+            ctx.save();
+            ctx.globalCompositeOperation = 'soft-light';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+            ctx.fillRect(0, 0, width, height);
+            ctx.restore();
+        };
+
+        paint();
+
+        loadHdrImage().then(img => {
+            if (!img || !canvas.isConnected) {
+                return;
+            }
+            const pattern = ctx.createPattern(img, 'repeat');
+            if (pattern) {
+                paint(pattern);
+            }
         });
-
-        ctx.shadowBlur = 0;
-        ctx.globalCompositeOperation = 'soft-light';
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
-        ctx.fillRect(0, 0, width, height);
-        ctx.globalCompositeOperation = 'source-over';
-
-        ctx.restore();
     }
 
     global.BrightMode = { apply };
