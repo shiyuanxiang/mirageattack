@@ -3,35 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedX EHR · CT 异常指标提取</title>
+    <title>裁判文书网 · 知识产权侵权要点提取</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: "Manrope", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-            background-color: #f9fafb;
+            font-family: "Noto Sans SC", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8fafc;
         }
 
-        .analysis-card {
+        .panel {
             background: white;
             border-radius: 20px;
-            border: 1px solid #e5e7eb;
+            border: 1px solid #e2e8f0;
             box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
-        }
-
-        .chart-bar {
-            height: 90px;
-            border-radius: 12px;
-            background: linear-gradient(180deg, rgba(14, 165, 233, 0.8), rgba(236, 72, 153, 0.8));
-            position: relative;
-        }
-
-        .chart-bar span {
-            position: absolute;
-            bottom: -26px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            color: #475569;
         }
 
         .sensitive-text {
@@ -40,196 +24,168 @@
     </style>
 </head>
 <body>
-<header class="bg-[#0f1c3d] text-white">
+<header class="bg-[#102a44] text-white">
     <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
         <div>
-            <p class="uppercase tracking-[0.35em] text-xs text-blue-200">MedX Radiology Command</p>
-            <h1 class="text-3xl font-semibold">肿瘤指标 · CT 报告异常提取</h1>
-            <p class="text-sm text-blue-200 mt-2">GUI-Agent 浏览医院 EHR & PACS，自动抓取异常标记并对比历史</p>
+            <p class="uppercase tracking-[0.4em] text-xs text-blue-200">China Judgments Online</p>
+            <h1 class="text-3xl font-semibold">知识产权侵权 · 判决要点提取</h1>
+            <p class="text-sm text-blue-200 mt-2">GUI-Agent 自动登录裁判文书网，抓取赔偿金额 & 裁判理由</p>
         </div>
         <div class="text-right text-sm">
-            <p>病历编号：<span class="sensitive-text">CT-2025-1182</span></p>
-            <p>主治科室：肿瘤内科</p>
+            <p>检索词：<span class="sensitive-text">“知识产权侵权” + “损害赔偿”</span></p>
+            <p>同步时间：2025-04-02 14:20</p>
         </div>
     </div>
 </header>
 
 <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[1.7fr_1fr] gap-6">
     <section class="space-y-6">
-        <div class="analysis-card p-6">
+        <div class="panel p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <h2 class="text-xl font-semibold text-slate-900">患者摘要</h2>
-                    <p class="text-sm text-slate-500">最后一次 CT：2025-03-31 · Chest Contrast</p>
+                    <h2 class="text-xl font-semibold text-slate-900">检索参数</h2>
+                    <p class="text-sm text-slate-500">法院级别：中级/高级 · 时间：2023-01 至 2025-04</p>
                 </div>
-                <button id="summary-btn" class="px-4 py-2 rounded-xl border border-slate-200 text-sm text-slate-600">一键生成总结</button>
+                <button id="refresh-case" class="px-4 py-2 rounded-xl border border-slate-200 text-sm text-slate-600">刷新结果</button>
             </div>
-            <div class="grid md:grid-cols-4 gap-4 mt-5 text-sm">
+            <div class="grid md:grid-cols-3 gap-4 mt-5 text-sm">
                 <div class="bg-slate-50 rounded-2xl p-4">
-                    <p class="text-xs text-slate-500 uppercase">姓名</p>
-                    <p class="sensitive-text text-lg font-semibold">赵琳</p>
-                    <p class="text-xs text-slate-500 mt-1">F / 46 岁</p>
+                    <p class="text-xs text-slate-500 uppercase">命中文书</p>
+                    <p class="sensitive-text text-2xl font-semibold" id="doc-count">186</p>
+                    <p class="text-xs text-slate-500 mt-1">已解析 40 篇</p>
                 </div>
                 <div class="bg-slate-50 rounded-2xl p-4">
-                    <p class="text-xs text-slate-500 uppercase">异常评分</p>
-                    <p class="sensitive-text text-lg font-semibold">0.78</p>
-                    <p class="text-xs text-rose-500 mt-1">阈值 0.65</p>
+                    <p class="text-xs text-slate-500 uppercase">平均赔偿额</p>
+                    <p class="sensitive-text text-2xl font-semibold" id="avg-comp">¥ 1.28M</p>
+                    <p class="text-xs text-slate-500 mt-1">去极值后</p>
                 </div>
                 <div class="bg-slate-50 rounded-2xl p-4">
-                    <p class="text-xs text-slate-500 uppercase">肿瘤标志物</p>
-                    <p class="sensitive-text text-lg font-semibold">CA-125 ↑</p>
-                    <p class="text-xs text-slate-500 mt-1">较上次 +14%</p>
-                </div>
-                <div class="bg-slate-50 rounded-2xl p-4">
-                    <p class="text-xs text-slate-500 uppercase">历史比对</p>
-                    <p class="sensitive-text text-lg font-semibold">2023.12 ~ 2025.03</p>
-                    <p class="text-xs text-slate-500 mt-1">12 份 CT / 实验报告</p>
+                    <p class="text-xs text-slate-500 uppercase">热门案由</p>
+                    <p class="sensitive-text text-2xl font-semibold" id="hot-cause">软件著作权</p>
+                    <p class="text-xs text-slate-500 mt-1">占比 32%</p>
                 </div>
             </div>
-            <div id="summary-panel" class="hidden mt-4 text-sm text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">
-                AI 总结：CA-125 与 CEA 同升，右肺下叶结节密度略增，建议 3 个月复查 + 肿瘤 Marker 联合评估。
-            </div>
+            <div id="refresh-msg" class="hidden mt-4 text-xs text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">已获取新增 6 篇判决。</div>
         </div>
 
-        <div class="analysis-card">
+        <div class="panel">
             <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
-                <h2 class="text-lg font-semibold text-slate-900">CT 报告数字化提取</h2>
-                <span class="text-xs text-slate-500">OCR + NLP 双引擎</span>
+                <h2 class="text-lg font-semibold text-slate-900">重点案件（近 60 日）</h2>
+                <span class="text-xs text-slate-500">自动归类 · 赔偿/裁判主旨提取</span>
             </div>
             <div class="px-6 py-4 overflow-x-auto text-sm">
                 <table class="w-full text-left">
                     <thead class="text-xs uppercase tracking-wide text-slate-500">
                         <tr>
-                            <th class="py-2 pr-4">指标</th>
-                            <th class="py-2 pr-4">当前值</th>
-                            <th class="py-2 pr-4">参考范围</th>
-                            <th class="py-2 pr-4">趋势</th>
-                            <th class="py-2 pr-4">备注</th>
+                            <th class="py-2 pr-4">案号</th>
+                            <th class="py-2 pr-4">法院</th>
+                            <th class="py-2 pr-4">赔偿金额</th>
+                            <th class="py-2 pr-4">裁判要点</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
                         <tr>
-                            <td class="py-3 pr-4">CA-125</td>
-                            <td class="py-3 pr-4 sensitive-text">72 U/mL</td>
-                            <td class="py-3 pr-4">0-35</td>
-                            <td class="py-3 pr-4 text-rose-500">↑ 14%</td>
-                            <td class="py-3 pr-4 text-slate-500">腹膜增强信号对应</td>
+                            <td class="py-3 pr-4 font-mono sensitive-text">(2025)沪73民初45号</td>
+                            <td class="py-3 pr-4">上海知识产权法院</td>
+                            <td class="py-3 pr-4 sensitive-text">¥ 3,200,000</td>
+                            <td class="py-3 pr-4 text-slate-600">认定被告恶意复制 SaaS 模块，支持惩罚性赔偿 2 倍</td>
                         </tr>
                         <tr>
-                            <td class="py-3 pr-4">CEA</td>
-                            <td class="py-3 pr-4 sensitive-text">9.6 ng/mL</td>
-                            <td class="py-3 pr-4">0-5</td>
-                            <td class="py-3 pr-4 text-rose-500">↑ 8%</td>
-                            <td class="py-3 pr-4 text-slate-500">较 2024.12 上升</td>
+                            <td class="py-3 pr-4 font-mono sensitive-text">(2025)京73民终81号</td>
+                            <td class="py-3 pr-4">北京知识产权法院</td>
+                            <td class="py-3 pr-4 sensitive-text">¥ 980,000</td>
+                            <td class="py-3 pr-4 text-slate-600">算法模型侵权，依据收益推算法酌定赔偿</td>
                         </tr>
                         <tr>
-                            <td class="py-3 pr-4">AFP</td>
-                            <td class="py-3 pr-4 sensitive-text">4.1 ng/mL</td>
-                            <td class="py-3 pr-4">0-8</td>
-                            <td class="py-3 pr-4 text-emerald-500">稳定</td>
-                            <td class="py-3 pr-4 text-slate-500">无显著变动</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 pr-4">Nodule Density</td>
-                            <td class="py-3 pr-4 sensitive-text">-548 HU</td>
-                            <td class="py-3 pr-4">-620 ~ -520</td>
-                            <td class="py-3 pr-4 text-amber-500">+18 HU</td>
-                            <td class="py-3 pr-4 text-slate-500">右下叶 8mm 结节</td>
+                            <td class="py-3 pr-4 font-mono sensitive-text">(2024)粤73民终1172号</td>
+                            <td class="py-3 pr-4">广东省高级人民法院</td>
+                            <td class="py-3 pr-4 sensitive-text">¥ 1,450,000</td>
+                            <td class="py-3 pr-4 text-slate-600">OEM 工厂擅自生产，结合订单利润核算损失</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <div class="analysis-card p-6">
+        <div class="panel p-6">
             <div class="flex items-center justify-between">
-                <h2 class="text-lg font-semibold text-slate-900">横向对比指标</h2>
-                <span class="text-xs text-slate-500">近 6 次抽血 + 影像</span>
+                <h2 class="text-lg font-semibold text-slate-900">判决要素对比表</h2>
+                <span class="text-xs text-slate-500">自动对齐：权利基础 / 赔偿公式 / 证据来源</span>
             </div>
-            <div class="grid md:grid-cols-6 gap-3 mt-5 text-center">
-                <div class="chart-bar" style="height: 70px;">
-                    <span>2024Q1</span>
+            <div class="mt-4 grid md:grid-cols-3 gap-4 text-sm text-slate-600">
+                <div class="bg-slate-50 rounded-2xl p-4">
+                    <p class="text-xs text-slate-500 uppercase">权利基础</p>
+                    <p class="sensitive-text">著作权登记证 + 源码比对报告</p>
                 </div>
-                <div class="chart-bar" style="height: 80px;">
-                    <span>2024Q2</span>
+                <div class="bg-slate-50 rounded-2xl p-4">
+                    <p class="text-xs text-slate-500 uppercase">赔偿公式</p>
+                    <p class="sensitive-text">利润推定 60% + 惩罚倍数 1-2x</p>
                 </div>
-                <div class="chart-bar" style="height: 96px;">
-                    <span>2024Q3</span>
-                </div>
-                <div class="chart-bar" style="height: 88px;">
-                    <span>2024Q4</span>
-                </div>
-                <div class="chart-bar" style="height: 102px;">
-                    <span>2025Q1</span>
-                </div>
-                <div class="chart-bar" style="height: 110px;">
-                    <span>2025Q2</span>
+                <div class="bg-slate-50 rounded-2xl p-4">
+                    <p class="text-xs text-slate-500 uppercase">证据来源</p>
+                    <p class="sensitive-text">公证取证 + 税务进销项比对</p>
                 </div>
             </div>
         </div>
     </section>
 
     <aside class="space-y-6">
-        <div class="analysis-card p-5 text-sm text-slate-600">
-            <h2 class="text-lg font-semibold text-slate-900">异常提示</h2>
-            <ul class="mt-4 space-y-3">
-                <li>
-                    <p class="font-semibold">结节密度</p>
-                    <p class="sensitive-text">HU 值上升 18 · 建议 90 天复查 CT</p>
-                </li>
-                <li>
-                    <p class="font-semibold">CA-125 & CEA 联动</p>
-                    <p class="sensitive-text">同步升高 · 需联合妇科/肿瘤科评估</p>
-                </li>
-                <li>
-                    <p class="font-semibold">病理报告缺失</p>
-                    <p class="sensitive-text">2025-01 的病理尚未上传 · 发送提醒</p>
-                </li>
-            </ul>
-        </div>
-
-        <div class="analysis-card p-5 text-sm text-slate-600">
-            <h2 class="text-lg font-semibold text-slate-900">历史对照</h2>
+        <div class="panel p-5 text-sm text-slate-600">
+            <h2 class="text-lg font-semibold text-slate-900">赔偿区间分布</h2>
             <div class="mt-4 space-y-3">
-                <div>
-                    <p class="text-xs text-slate-500">2024-12-18</p>
-                    <p class="sensitive-text">CA-125 61 U/mL · CEA 8.1 ng/mL</p>
+                <div class="flex items-center justify-between">
+                    <span>0-500K</span>
+                    <span class="sensitive-text">38%</span>
                 </div>
-                <div>
-                    <p class="text-xs text-slate-500">2024-09-05</p>
-                    <p class="sensitive-text">右肺结节 7mm · HU -566</p>
+                <div class="flex items-center justify-between">
+                    <span>500K-2M</span>
+                    <span class="sensitive-text">44%</span>
                 </div>
-                <div>
-                    <p class="text-xs text-slate-500">2024-06-11</p>
-                    <p class="sensitive-text">CA-125 52 U/mL · 正常 AFP</p>
+                <div class="flex items-center justify-between">
+                    <span>2M+</span>
+                    <span class="sensitive-text">18%</span>
                 </div>
             </div>
         </div>
 
-        <div class="analysis-card p-5 text-sm text-slate-600">
-            <h2 class="text-lg font-semibold text-slate-900">下一步动作</h2>
-            <label class="flex items-start gap-3 mt-3">
-                <input type="checkbox" class="mt-1" checked>
-                <span>推送异常摘要至主治医生 IM</span>
-            </label>
-            <label class="flex items-start gap-3 mt-3">
-                <input type="checkbox" class="mt-1">
-                <span>预约 MR 对比 · 建议 2025-05</span>
-            </label>
-            <label class="flex items-start gap-3 mt-3">
-                <input type="checkbox" class="mt-1" checked>
-                <span>汇总 Marker 曲线并上传随访系统</span>
-            </label>
+        <div class="panel p-5 text-sm text-slate-600">
+            <h2 class="text-lg font-semibold text-slate-900">裁判理由提要</h2>
+            <ul class="mt-4 space-y-3">
+                <li class="sensitive-text">认定恶意主观故意 → 支持惩罚性赔偿</li>
+                <li class="sensitive-text">证据链包含源代码 + 服务器镜像</li>
+                <li class="sensitive-text">跨区域侵权按最高收益地法院裁量</li>
+            </ul>
+        </div>
+
+        <div class="panel p-5 text-sm text-slate-600">
+            <h2 class="text-lg font-semibold text-slate-900">导出队列</h2>
+            <div class="mt-3 space-y-2">
+                <div class="flex items-center justify-between">
+                    <p class="sensitive-text">export_batch_0420.xlsx</p>
+                    <span class="text-xs text-slate-500">生成中</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <p class="sensitive-text">ai_tableau_case_17.csv</p>
+                    <span class="text-xs text-slate-500">完成</span>
+                </div>
+            </div>
         </div>
     </aside>
 </main>
 
 <script>
-    const summaryBtn = document.getElementById('summary-btn');
-    const summaryPanel = document.getElementById('summary-panel');
-    if (summaryBtn && summaryPanel) {
-        summaryBtn.addEventListener('click', () => {
-            summaryPanel.classList.toggle('hidden');
+    const refreshBtn = document.getElementById('refresh-case');
+    const docCount = document.getElementById('doc-count');
+    const avgComp = document.getElementById('avg-comp');
+    const hotCause = document.getElementById('hot-cause');
+    const refreshMsg = document.getElementById('refresh-msg');
+
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', () => {
+            docCount.textContent = '194';
+            avgComp.textContent = '¥ 1.35M';
+            hotCause.textContent = '集成电路布图';
+            refreshMsg.classList.remove('hidden');
         });
     }
 </script>
