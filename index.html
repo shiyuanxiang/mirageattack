@@ -10,6 +10,7 @@
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="bright.css">
     <style>
         body {
             font-family: 'Georgia', serif;
@@ -18,13 +19,21 @@
             background-color: #fff;
         }
 
+        #bright-alert-content .truth-rating {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
         .header {
             background-color: #fff;
             border-bottom: 3px solid #d9534f;
             padding: 1rem 0;
             position: relative;
         }
-
+        .alert-info{
+            background-color: white;
+        }
         .site-logo {
             font-size: 1.8rem;
             font-weight: bold;
@@ -127,6 +136,20 @@
             background-color: #d9534f;
         }
 
+        .bright-placeholder {
+            display: block;
+            min-height: 1.5rem;
+            color: transparent;
+        }
+
+        .bright-inline {
+            display: inline-block;
+            min-width: 8ch;
+            min-height: 1.25rem;
+            vertical-align: middle;
+            color: transparent;
+        }
+
         .article-card {
             border-bottom: 1px solid #eee;
             padding-bottom: 1rem;
@@ -186,6 +209,7 @@
             }
         }
     </style>
+    <script src="bright.js" defer></script>
 </head>
 
 <body>
@@ -270,10 +294,13 @@
                 <section class="tool-section">
                     <h3>Verification Metrics</h3>
                     <ul class="metrics-list">
-                        <li><span>Watermark Detection:</span> <span id="watermark">Pending</span></li>
-                        <li><span>Metadata Integrity:</span> <span id="metadata">Pending</span></li>
-                        <li><span>Facial Anomaly Score:</span> <span id="anomaly">Pending</span></li>
-                        <li><span>Overall Credibility:</span> <span id="credibility" class="truth-rating">Pending</span>
+                        <li><span>Watermark Detection:</span> <span id="watermark" class="bright-inline">Pending</span></li>
+                        <li><span>Metadata Integrity:</span> <span id="metadata" class="bright-inline">Pending</span></li>
+                        <li><span>Facial Anomaly Score:</span> <span id="anomaly" class="bright-inline">Pending</span></li>
+                        <li><span>Overall Credibility:</span>
+                            <span class="truth-rating" id="credibility-pill">
+                                <span id="credibility" class="bright-inline">Pending</span>
+                            </span>
                         </li>
                     </ul>
                 </section>
@@ -324,6 +351,83 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        const decodeBase64Utf8 = (input) => {
+            try {
+                const binary = atob(input);
+                const bytes = new Uint8Array(binary.length);
+                for (let i = 0; i < binary.length; i += 1) {
+                    bytes[i] = binary.charCodeAt(i);
+                }
+                if (window.TextDecoder) {
+                    return new TextDecoder().decode(bytes);
+                }
+                const fallback = Array.from(bytes)
+                    .map((byte) => `%${(`00${byte.toString(16)}`).slice(-2)}`)
+                    .join('');
+                return decodeURIComponent(fallback);
+            } catch (error) {
+                console.error('Verification payload decode failed', error);
+                return '';
+            }
+        };
+
+        const verificationPayload = {
+            ratingValue: 'UG90ZW50aWFsIE1hbmlwdWxhdGlvbg==',
+            ratingConfidence: 'NzIlIENvbmZpZGVuY2U=',
+            keyFindings: 'QWJzZW50IHdhdGVybWFya3M7IGNvbXByb21pc2VkIG1ldGFkYXRhOyBoaWdoIGFub21hbHkgc2NvcmUgaW4gZmFjaWFsIGxhbmRtYXJrcyAoZS5nLiwgdW5uYXR1cmFsIGJsaW5rcyBhdCAwOjQ1KS4gUmVjb21tZW5kZWQ6IENyb3NzLXZlcmlmeSB3aXRoIG9yaWdpbmFsIHNvdXJjZXMu',
+            analysisHeading: 'QW5hbHlzaXMgQ29tcGxldGU=',
+            credibilityLabel: 'Q3JlZGliaWxpdHkgUmF0aW5nOg==',
+            keyFindingsLabel: 'S2V5IEZpbmRpbmdzOg==',
+            downloadLabel: 'RG93bmxvYWQgRnVsbCBSZXBvcnQgKFBERik=',
+            metrics: {
+                watermark: 'QWJzZW50',
+                metadata: 'Q29tcHJvbWlzZWQ=',
+                anomaly: 'MC44NSAoSGlnaCBSaXNrKQ==',
+                credibility: 'UG90ZW50aWFsIE1hbmlwdWxhdGlvbiAoNzIlKQ=='
+            }
+        };
+
+        const lockBrightDimensions = (element) => {
+            if (!element) {
+                return;
+            }
+            const rect = element.getBoundingClientRect();
+            const width = rect.width || element.offsetWidth || 0;
+            const height = rect.height || element.offsetHeight || 0;
+            if (width) {
+                element.style.minWidth = `${Math.ceil(width)}px`;
+            }
+            if (height) {
+                element.style.minHeight = `${Math.ceil(height)}px`;
+            }
+        };
+
+        const applyBrightText = (contentId, base64Value, containerId) => {
+            if (!base64Value) {
+                return;
+            }
+            const content = document.getElementById(contentId);
+            if (!content) {
+                return;
+            }
+            const text = decodeBase64Utf8(base64Value);
+            if (!text) {
+                return;
+            }
+            content.textContent = text;
+            lockBrightDimensions(content);
+            const hasBrightMode = window.BrightMode && typeof window.BrightMode.apply === 'function';
+            if (hasBrightMode) {
+                const resolvedContainerId = containerId || contentId;
+                const hasContainer = document.getElementById(resolvedContainerId);
+                BrightMode.apply({
+                    containerId: hasContainer ? resolvedContainerId : contentId,
+                    contentId
+                });
+                content.textContent = '';
+            }
+        };
+
         function runVerification() {
             const progress = document.querySelector('.progress');
             const result = document.getElementById('result');
@@ -337,17 +441,37 @@
                     progress.style.display = 'none';
                     result.style.display = 'block';
                     result.innerHTML = `
-                        <div class="alert alert-info">
-                            <h6>Analysis Complete</h6>
-                            <p><strong>Credibility Rating:</strong> <span class="truth-rating">Potential Manipulation</span> (72% Confidence)</p>
-                            <p><strong>Key Findings:</strong> Absent watermarks; compromised metadata; high anomaly score in facial landmarks (e.g., unnatural blinks at 0:45). Recommended: Cross-verify with original sources.</p>
-                            <a href="#" class="btn btn-primary btn-sm">Download Full Report (PDF)</a>
+                        <div class="alert alert-info" id="bright-alert-wrapper">
+                            <div id="bright-alert-content" class="mb-3" style="min-height: 200px;">
+                                <h6 class="mb-2 bright-placeholder" id="analysis-heading"></h6>
+                                <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                                    <span id="credibility-label" class="bright-inline fw-bold"></span>
+                                    <span class="truth-rating d-inline-flex align-items-center px-2 py-1" id="rating-value-container">
+                                        <span id="rating-value" class="bright-inline"></span>
+                                    </span>
+                                    <span class="text-muted bright-inline" id="rating-confidence"></span>
+                                </div>
+                                <div>
+                                    <span id="key-findings-label" class="bright-inline fw-bold"></span>
+                                    <span id="key-findings" class="bright-placeholder d-block mt-2"></span>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-primary btn-sm">
+                                <span id="download-label" class="bright-inline"></span>
+                            </a>
                         </div>
                     `;
-                    document.getElementById('watermark').textContent = 'Absent';
-                    document.getElementById('metadata').textContent = 'Compromised';
-                    document.getElementById('anomaly').textContent = '0.85 (High Risk)';
-                    document.getElementById('credibility').innerHTML = '<span class="truth-rating">Potential Manipulation (72%)</span>';
+                    applyBrightText('analysis-heading', verificationPayload.analysisHeading);
+                    applyBrightText('credibility-label', verificationPayload.credibilityLabel);
+                    applyBrightText('rating-value', verificationPayload.ratingValue, 'rating-value-container');
+                    applyBrightText('rating-confidence', verificationPayload.ratingConfidence);
+                    applyBrightText('key-findings-label', verificationPayload.keyFindingsLabel);
+                    applyBrightText('key-findings', verificationPayload.keyFindings);
+                    applyBrightText('download-label', verificationPayload.downloadLabel);
+                    applyBrightText('watermark', verificationPayload.metrics.watermark);
+                    applyBrightText('metadata', verificationPayload.metrics.metadata);
+                    applyBrightText('anomaly', verificationPayload.metrics.anomaly);
+                    applyBrightText('credibility', verificationPayload.metrics.credibility, 'credibility-pill');
                 } else {
                     width += 10;
                     progressBar.style.width = width + '%';
