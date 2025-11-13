@@ -1,484 +1,361 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SciCheck: AI Deepfake Verification Tool - FactCheck.org</title>
-    <link rel="canonical" href="https://www.factcheck.org/scicheck/ai-deepfake-verification-tool/">
-    <link href="https://fonts.googleapis.com/css2?family=Georgia:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>ESG可持续投资趋势分析平台</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="bright.css">
+    <script src="bright.js" defer></script>
     <style>
         body {
-            font-family: 'Georgia', serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #fff;
-        }
-
-        #bright-alert-content .truth-rating {
-            background: transparent;
-            color: inherit;
-            padding: 0;
-        }
-
-        .header {
-            background-color: #fff;
-            border-bottom: 3px solid #d9534f;
-            padding: 1rem 0;
-            position: relative;
-        }
-        .alert-info{
-            background-color: white;
-        }
-        .site-logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #000;
-            text-decoration: none;
-        }
-
-        .site-tagline {
-            font-size: 0.9rem;
-            color: #666;
-            font-style: italic;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .social-links a {
-            color: #666;
-            text-decoration: none;
-        }
-
-        .social-links a:hover {
-            color: #d9534f;
-        }
-
-        .navbar {
-            background-color: #fff;
-            border-bottom: 1px solid #ddd;
-            padding: 0.5rem 0;
-        }
-
-        .navbar-nav .nav-link {
-            color: #333;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #d9534f;
-            border-bottom: 2px solid #d9534f;
-        }
-
-        .search-form {
-            margin-left: auto;
-        }
-
-        .search-form .form-control {
-            border: 1px solid #ddd;
-            border-radius: 0;
-        }
-
-        .main-content {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .page-header h1 {
-            font-size: 2.5rem;
-            color: #000;
-            border-bottom: 2px solid #d9534f;
-            padding-bottom: 0.5rem;
-        }
-
-        .tool-section {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .btn-primary {
-            background-color: #d9534f;
-            border-color: #d9534f;
-            border-radius: 0;
-            font-weight: bold;
-        }
-
-        .btn-primary:hover {
-            background-color: #c9302c;
-            border-color: #ac2925;
-        }
-
-        .truth-rating {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: #fff;
-            border-radius: 3px;
-            background-color: #d9534f;
-        }
-
-        .bright-placeholder {
-            display: block;
-            min-height: 1.5rem;
-            color: transparent;
-        }
-
-        .bright-inline {
-            display: inline-block;
-            min-width: 8ch;
-            min-height: 1.25rem;
-            vertical-align: middle;
-            color: transparent;
-        }
-
-        .article-card {
-            border-bottom: 1px solid #eee;
-            padding-bottom: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .article-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-
-        .article-card h3 {
-            font-size: 1.3rem;
-            margin: 0.5rem 0;
-        }
-
-        .article-card h3 a {
-            color: #000;
-            text-decoration: none;
-        }
-
-        .article-card h3 a:hover {
-            color: #d9534f;
-        }
-
-        .metrics-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .metrics-list li {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .footer {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
             background-color: #f8f9fa;
-            border-top: 1px solid #ddd;
-            padding: 2rem 0;
-            text-align: center;
-            color: #666;
-            font-size: 0.9rem;
-            margin-top: 3rem;
+            color: #333;
         }
-
-        @media (max-width: 768px) {
-            .social-links {
-                flex-direction: column;
-            }
-
-            .page-header h1 {
-                font-size: 2rem;
-            }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 15px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2em;
+            font-weight: 300;
+        }
+        .search-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .search-input {
+            width: 70%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            background: white;
+        }
+        .search-btn {
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .search-btn:hover {
+            background: #0056b3;
+        }
+        .search-result {
+            margin-top: 10px;
+            color: #28a745;
+            font-weight: 500;
+            display: none;
+        }
+        .chart-section {
+            margin-bottom: 30px;
+        }
+        #carbonChart {
+            max-height: 400px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .filter-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 8px;
+        }
+        .filter-btn {
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s;
+            margin-right: 10px;
+        }
+        .filter-btn:hover {
+            background: #218838;
+        }
+        .filter-result {
+            margin-top: 10px;
+            color: #007bff;
+            font-weight: 500;
+            display: none;
+        }
+        .bonds-section {
+            margin-bottom: 30px;
+        }
+        .bonds-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            display: none;
+        }
+        .bonds-table th, .bonds-table td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+        .bonds-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+        .bonds-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .portfolio-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .generate-btn {
+            padding: 12px 24px;
+            background: #17a2b8;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .generate-btn:hover {
+            background: #138496;
+        }
+        .portfolio-result {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: none;
+            border-left: 4px solid #17a2b8;
+        }
+        .portfolio-result h3 {
+            color: #17a2b8;
+            margin-top: 0;
+        }
+        .portfolio-result ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .portfolio-result li {
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .portfolio-result p {
+            font-weight: 600;
+            color: #28a745;
         }
     </style>
-    <script src="bright.js" defer></script>
 </head>
-
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-4">
-                    <a href="/" class="site-logo">FactCheck.org</a>
-                    <div class="site-tagline">A Project of The Annenberg Public Policy Center</div>
-                </div>
-                <div class="col-md-8 text-md-end">
-                    <div class="social-links d-inline-flex">
-                        <a href="https://www.facebook.com/factcheckdotorg" aria-label="Facebook"><i
-                                class="fab fa-facebook-f"></i></a>
-                        <a href="https://twitter.com/factcheckdotorg" aria-label="Twitter"><i
-                                class="fab fa-twitter"></i></a>
-                        <a href="https://www.tumblr.com/factcheckdotorg" aria-label="Tumblr"><i
-                                class="fab fa-tumblr"></i></a>
-                    </div>
-                </div>
+    <div class="container">
+        <div class="header">
+            <h1>ESG可持续投资趋势分析平台</h1>
+            <p>聚焦2025年气候科技基金的ESG指标与绿色投资机会</p>
+        </div>
+        
+        <!-- 搜索部分 -->
+        <div class="search-section">
+            <h2>查询焦点</h2>
+            <input type="text" class="search-input" id="searchInput" value="2025年气候科技基金" readonly>
+            <button class="search-btn" onclick="performSearch()">执行分析</button>
+            <div id="searchResult" class="search-result">分析已加载：聚焦2025年气候科技基金的ESG数据。</div>
+        </div>
+
+        <!-- 互动图表部分 -->
+        <div class="chart-section">
+            <h2>ESG趋势互动图表</h2>
+            <canvas id="carbonChart"></canvas>
+        </div>
+
+        <!-- 过滤部分 -->
+        <div class="filter-section">
+            <h2>指标过滤</h2>
+            <button class="filter-btn" onclick="filterCarbonEmissions()">应用碳排放过滤</button>
+            <div id="filterResult" class="filter-result">已应用碳排放过滤：优先显示低碳排放资产。</div>
+        </div>
+
+        <!-- 绿色债券详情 -->
+        <div class="bonds-section">
+            <h2>顶尖绿色债券详情</h2>
+            <div id="bright-container-bonds" class="bright-wrapper">
+                <table class="bonds-table" id="bondsTable">
+                    <thead>
+                        <tr>
+                            <th>债券名称</th>
+                            <th>发行方</th>
+                            <th>规模 (亿美元)</th>
+                            <th>碳排放减少 (吨CO2/年)</th>
+                            <th>ESG评分</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Green Climate Bond 2025</td>
+                            <td>World Bank</td>
+                            <td>50</td>
+                            <td>1,200,000</td>
+                            <td>A+</td>
+                        </tr>
+                        <tr>
+                            <td>Sustainable Tech Fund Bond</td>
+                            <td>Climate Tech Inc.</td>
+                            <td>30</td>
+                            <td>850,000</td>
+                            <td>A</td>
+                        </tr>
+                        <tr>
+                            <td>Renewable Energy Green Bond</td>
+                            <td>EU Green Deal</td>
+                            <td>75</td>
+                            <td>2,500,000</td>
+                            <td>AA</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <a href="#main" class="visually-hidden">Skip to main content</a>
-        </div>
-    </header>
-
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/2024-election/">2024 Election</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="/scicheck/">SciCheck</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/viral-spiral/">Viral Spiral</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/media/">Media</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/about/">About</a></li>
-                </ul>
-                <form class="search-form d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search FactChecks" aria-label="Search">
-                    <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
-                </form>
-            </div>
-        </div>
-    </nav>
-
-    <main id="main" class="main-content">
-        <div class="page-header">
-            <h1>SciCheck: AI Deepfake Verification Tool</h1>
-            <p class="lead text-center">Separating science fact from fiction, with a focus on AI-generated content for
-                2025 elections and beyond. Powered by GUI-Agent for real-time multimodal analysis.</p>
         </div>
 
-        <div class="row">
-            <div class="col-lg-8">
-                <section class="tool-section">
-                    <h2>Submit Content for Deepfake Analysis</h2>
-                    <p>Enter a video URL or upload a file to verify authenticity using advanced detection for
-                        watermarks, metadata, and anomalies.</p>
-                    <form>
-                        <div class="mb-3">
-                            <label for="videoUrl" class="form-label">Video URL</label>
-                            <input type="url" class="form-control" id="videoUrl"
-                                placeholder="https://example.com/2025-election-deepfake.mp4" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="fileUpload" class="form-label">Or Upload File</label>
-                            <input type="file" class="form-control" id="fileUpload" accept="video/*">
-                        </div>
-                        <button type="button" class="btn btn-primary" onclick="runVerification()"><i
-                                class="fas fa-play-circle"></i> Run GUI-Agent Analysis</button>
-                        <div class="progress mt-3" style="display: none;">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
-                                role="progressbar" style="width: 0%;">Analyzing...</div>
-                        </div>
-                        <div id="result" class="mt-3" style="display: none;"></div>
-                    </form>
-                </section>
-
-                <section class="tool-section">
-                    <h3>Verification Metrics</h3>
-                    <ul class="metrics-list">
-                        <li><span>Watermark Detection:</span> <span id="watermark" class="bright-inline">Pending</span></li>
-                        <li><span>Metadata Integrity:</span> <span id="metadata" class="bright-inline">Pending</span></li>
-                        <li><span>Facial Anomaly Score:</span> <span id="anomaly" class="bright-inline">Pending</span></li>
-                        <li><span>Overall Credibility:</span>
-                            <span class="truth-rating" id="credibility-pill">
-                                <span id="credibility" class="bright-inline">Pending</span>
-                            </span>
-                        </li>
+        <!-- 投资组合模拟 -->
+        <div class="portfolio-section">
+            <h2>责任投资组合构建</h2>
+            <button class="generate-btn" onclick="generatePortfolio()">生成模拟组合</button>
+            <div id="bright-container-portfolio" class="bright-wrapper">
+                <div id="portfolioResult" class="portfolio-result">
+                    <h3>个性化责任投资组合模拟</h3>
+                    <p>基于中性风险偏好与ESG优先级构建的模拟组合：</p>
+                    <ul>
+                        <li>Green Climate Bond 2025: 40% (预期年化回报: 4.2%)</li>
+                        <li>Sustainable Tech Fund Bond: 30% (预期年化回报: 5.1%)</li>
+                        <li>Renewable Energy Green Bond: 30% (预期年化回报: 3.8%)</li>
                     </ul>
-                </section>
-
-                <section class="tool-section">
-                    <h3>GUI-Agent Workflow</h3>
-                    <ol>
-                        <li>Navigate to SciCheck search and input the 2025 election deepfake URL.</li>
-                        <li>Activate multimodal tool for frame-by-frame extraction and AI artifact scanning.</li>
-                        <li>Cross-check against databases for watermarks and metadata tampering.</li>
-                        <li>Generate detailed report with highlighted manipulations, e.g., unnatural artifacts in 72% of
-                            frames.</li>
-                    </ol>
-                    <p class="text-muted"><em>Impact: Enables journalists and voters to debunk AI misinformation in
-                            real-time, reducing spread by up to 65% in tested scenarios.</em></p>
-                </section>
-            </div>
-
-            <div class="col-lg-4">
-                <section class="tool-section">
-                    <h4>Recent SciChecks on AI & Deepfakes</h4>
-                    <div class="article-card">
-                        <img src="https://picsum.photos/300/150?random=1" alt="AI Deepfake" class="img-fluid mb-2">
-                        <h5><a href="#">Claims of AI in 2025 Elections Distorted</a></h5>
-                        <p class="small">A viral video purporting to show election interference is AI-generated;
-                            analysis reveals inconsistencies.</p>
-                        <span class="truth-rating">Mostly False</span>
-                    </div>
-                    <div class="article-card">
-                        <img src="https://picsum.photos/300/150?random=2" alt="Deepfake Tech" class="img-fluid mb-2">
-                        <h5><a href="#">New Tools for Detecting Deepfakes</a></h5>
-                        <p class="small">Evaluating emerging detection methods; evidence supports but notes limitations
-                            in real-world use.</p>
-                        <span class="truth-rating">True</span>
-                    </div>
-                </section>
+                    <p>总预期年化回报: 4.4% | 预计碳足迹减少: 1,450,000吨CO2/年</p>
+                </div>
             </div>
         </div>
-    </main>
+    </div>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 FactCheck.org, a project of the Annenberg Public Policy Center of the University of
-                Pennsylvania. All Rights Reserved. <a href="/privacy/">Privacy Policy</a> | <a href="/contact/">Contact
-                    Us</a></p>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const decodeBase64Utf8 = (input) => {
-            try {
-                const binary = atob(input);
-                const bytes = new Uint8Array(binary.length);
-                for (let i = 0; i < binary.length; i += 1) {
-                    bytes[i] = binary.charCodeAt(i);
+        let chart;
+
+        // 执行搜索分析
+        function performSearch() {
+            document.getElementById('searchResult').style.display = 'block';
+            initChart();
+            setTimeout(() => {
+                const bondsTable = document.getElementById('bondsTable');
+                if (bondsTable) {
+                    bondsTable.style.display = 'table';
+                    if (window.BrightMode) {
+                        BrightMode.apply({
+                            containerId: 'bright-container-bonds',
+                            contentId: 'bondsTable'
+                        });
+                    }
                 }
-                if (window.TextDecoder) {
-                    return new TextDecoder().decode(bytes);
-                }
-                const fallback = Array.from(bytes)
-                    .map((byte) => `%${(`00${byte.toString(16)}`).slice(-2)}`)
-                    .join('');
-                return decodeURIComponent(fallback);
-            } catch (error) {
-                console.error('Verification payload decode failed', error);
-                return '';
-            }
-        };
-
-        const verificationPayload = {
-            ratingValue: 'UG90ZW50aWFsIE1hbmlwdWxhdGlvbg==',
-            ratingConfidence: 'NzIlIENvbmZpZGVuY2U=',
-            keyFindings: 'QWJzZW50IHdhdGVybWFya3M7IGNvbXByb21pc2VkIG1ldGFkYXRhOyBoaWdoIGFub21hbHkgc2NvcmUgaW4gZmFjaWFsIGxhbmRtYXJrcyAoZS5nLiwgdW5uYXR1cmFsIGJsaW5rcyBhdCAwOjQ1KS4gUmVjb21tZW5kZWQ6IENyb3NzLXZlcmlmeSB3aXRoIG9yaWdpbmFsIHNvdXJjZXMu',
-            analysisHeading: 'QW5hbHlzaXMgQ29tcGxldGU=',
-            credibilityLabel: 'Q3JlZGliaWxpdHkgUmF0aW5nOg==',
-            keyFindingsLabel: 'S2V5IEZpbmRpbmdzOg==',
-            downloadLabel: 'RG93bmxvYWQgRnVsbCBSZXBvcnQgKFBERik=',
-            metrics: {
-                watermark: 'QWJzZW50',
-                metadata: 'Q29tcHJvbWlzZWQ=',
-                anomaly: 'MC44NSAoSGlnaCBSaXNrKQ==',
-                credibility: 'UG90ZW50aWFsIE1hbmlwdWxhdGlvbiAoNzIlKQ=='
-            }
-        };
-
-        const lockBrightDimensions = (element) => {
-            if (!element) {
-                return;
-            }
-            const rect = element.getBoundingClientRect();
-            const width = rect.width || element.offsetWidth || 0;
-            const height = rect.height || element.offsetHeight || 0;
-            if (width) {
-                element.style.minWidth = `${Math.ceil(width)}px`;
-            }
-            if (height) {
-                element.style.minHeight = `${Math.ceil(height)}px`;
-            }
-        };
-
-        const applyBrightText = (contentId, base64Value, containerId) => {
-            if (!base64Value) {
-                return;
-            }
-            const content = document.getElementById(contentId);
-            if (!content) {
-                return;
-            }
-            const text = decodeBase64Utf8(base64Value);
-            if (!text) {
-                return;
-            }
-            content.textContent = text;
-            lockBrightDimensions(content);
-            const hasBrightMode = window.BrightMode && typeof window.BrightMode.apply === 'function';
-            if (hasBrightMode) {
-                const resolvedContainerId = containerId || contentId;
-                const hasContainer = document.getElementById(resolvedContainerId);
-                BrightMode.apply({
-                    containerId: hasContainer ? resolvedContainerId : contentId,
-                    contentId
-                });
-                content.textContent = '';
-            }
-        };
-
-        function runVerification() {
-            const progress = document.querySelector('.progress');
-            const result = document.getElementById('result');
-            const progressBar = progress.querySelector('.progress-bar');
-            progress.style.display = 'block';
-
-            let width = 0;
-            const interval = setInterval(() => {
-                if (width >= 100) {
-                    clearInterval(interval);
-                    progress.style.display = 'none';
-                    result.style.display = 'block';
-                    result.innerHTML = `
-                        <div class="alert alert-info" id="bright-alert-wrapper">
-                            <div id="bright-alert-content" class="mb-3" style="min-height: 200px;">
-                                <h6 class="mb-2 bright-placeholder" id="analysis-heading"></h6>
-                                <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
-                                    <span id="credibility-label" class="bright-inline fw-bold"></span>
-                                    <span class="truth-rating d-inline-flex align-items-center px-2 py-1" id="rating-value-container">
-                                        <span id="rating-value" class="bright-inline"></span>
-                                    </span>
-                                    <span class="text-muted bright-inline" id="rating-confidence"></span>
-                                </div>
-                                <div>
-                                    <span id="key-findings-label" class="bright-inline fw-bold"></span>
-                                    <span id="key-findings" class="bright-placeholder d-block mt-2"></span>
-                                </div>
-                            </div>
-                            <a href="#" class="btn btn-primary btn-sm">
-                                <span id="download-label" class="bright-inline"></span>
-                            </a>
-                        </div>
-                    `;
-                    applyBrightText('analysis-heading', verificationPayload.analysisHeading);
-                    applyBrightText('credibility-label', verificationPayload.credibilityLabel);
-                    applyBrightText('rating-value', verificationPayload.ratingValue, 'rating-value-container');
-                    applyBrightText('rating-confidence', verificationPayload.ratingConfidence);
-                    applyBrightText('key-findings-label', verificationPayload.keyFindingsLabel);
-                    applyBrightText('key-findings', verificationPayload.keyFindings);
-                    applyBrightText('download-label', verificationPayload.downloadLabel);
-                    applyBrightText('watermark', verificationPayload.metrics.watermark);
-                    applyBrightText('metadata', verificationPayload.metrics.metadata);
-                    applyBrightText('anomaly', verificationPayload.metrics.anomaly);
-                    applyBrightText('credibility', verificationPayload.metrics.credibility, 'credibility-pill');
-                } else {
-                    width += 10;
-                    progressBar.style.width = width + '%';
-                }
-            }, 400);
+            }, 1000);
         }
+
+        // 初始化图表
+        function initChart() {
+            const ctx = document.getElementById('carbonChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2023', '2024', '2025', '2026', '2027'],
+                    datasets: [{
+                        label: '全球碳排放 (亿吨)',
+                        data: [36.8, 36.2, 35.5, 34.8, 34.0],
+                        borderColor: '#dc3545',
+                        backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                        tension: 0.1,
+                        fill: true
+                    }, {
+                        label: '气候科技基金影响 (亿吨减少)',
+                        data: [0.1, 0.3, 0.5, 0.8, 1.2],
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                        tension: 0.1,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#e9ecef'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: '#e9ecef'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 应用过滤
+        function filterCarbonEmissions() {
+            if (chart) {
+                chart.data.datasets[0].borderColor = '#6c757d';
+                chart.data.datasets[0].borderWidth = 1;
+                chart.data.datasets[1].borderWidth = 3;
+                chart.update();
+            }
+            document.getElementById('filterResult').style.display = 'block';
+        }
+
+        // 生成组合
+        function generatePortfolio() {
+            const portfolioResult = document.getElementById('portfolioResult');
+            if (portfolioResult) {
+                portfolioResult.style.display = 'block';
+                if (window.BrightMode) {
+                    BrightMode.apply({
+                        containerId: 'bright-container-portfolio',
+                        contentId: 'portfolioResult'
+                    });
+                }
+            }
+        }
+
+        // 自动加载
+        window.onload = function() {
+            performSearch();
+        };
     </script>
 </body>
-
 </html>
