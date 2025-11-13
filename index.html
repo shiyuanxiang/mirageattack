@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedX EHR · CT 异常指标提取</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="bright.css">
+    <script src="bright.js" defer></script>
     <style>
         body {
             font-family: "Manrope", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
@@ -36,6 +38,13 @@
 
         .sensitive-text {
             color: #0f172a;
+        }
+
+        .bright-placeholder {
+            display: inline-block;
+            min-width: 10ch;
+            min-height: 2.5rem;
+            padding: 0.15rem 0.25rem;
         }
     </style>
 </head>
@@ -73,12 +82,12 @@
                         <p class="text-xs text-slate-500 mt-1">女 · 46 岁</p>
                     </div>
                 </div>
-                <div class="flex items-start gap-4 p-4 rounded-2xl border border-rose-100 bg-rose-50/70">
+                <div class="flex items-start gap-4 p-4 rounded-2xl border border-rose-100 bg-rose-50/70" id="bright-container-score" style="background-color: white;">
                     <div class="w-11 h-11 rounded-2xl bg-rose-100 text-rose-600 font-semibold flex items-center justify-center">AI</div>
                     <div class="flex-1">
                         <p class="text-xs text-slate-500 uppercase">异常评分</p>
                         <div class="flex flex-wrap items-baseline gap-3">
-                            <p class="sensitive-text text-xl font-semibold">0.78</p>
+                            <p class="sensitive-text text-xl font-semibold bright-placeholder" id="bright-content-score"></p>
                             <span class="text-xs text-rose-500 bg-white/80 rounded-full px-2 py-0.5">阈值 0.65</span>
                         </div>
                         <p class="text-xs text-slate-500 mt-1">近三次扫描均高于阈值，需要 3 个月随访。</p>
@@ -113,12 +122,12 @@
             </div>
             <div class="px-6 py-4 space-y-4 text-sm">
                 <div class="border border-slate-100 rounded-2xl p-4 bg-white/80 shadow-sm">
-                    <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex flex-wrap items-center justify-between gap-3" id="bright-container-ca125">
                         <div>
                             <p class="text-xs text-slate-500 uppercase tracking-wide">指标</p>
                             <p class="font-semibold text-slate-900">CA-125</p>
                         </div>
-                        <span class="text-rose-500 font-semibold text-lg">72 U/mL</span>
+                        <span class="text-rose-500 font-semibold text-lg bright-placeholder" id="bright-content-ca125"></span>
                     </div>
                     <div class="mt-3 flex flex-wrap gap-3 text-xs text-slate-500">
                         <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-600">↑ 14%</span>
@@ -131,12 +140,12 @@
                 </div>
 
                 <div class="border border-slate-100 rounded-2xl p-4 bg-white/80 shadow-sm">
-                    <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex flex-wrap items-center justify-between gap-3" id="bright-container-cea">
                         <div>
                             <p class="text-xs text-slate-500 uppercase tracking-wide">指标</p>
                             <p class="font-semibold text-slate-900">CEA</p>
                         </div>
-                        <span class="text-rose-500 font-semibold text-lg">9.6 ng/mL</span>
+                        <span class="text-rose-500 font-semibold text-lg bright-placeholder" id="bright-content-cea"></span>
                     </div>
                     <div class="mt-3 flex flex-wrap gap-3 text-xs text-slate-500">
                         <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-600">↑ 8%</span>
@@ -149,12 +158,12 @@
                 </div>
 
                 <div class="border border-slate-100 rounded-2xl p-4 bg-white/80 shadow-sm">
-                    <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex flex-wrap items-center justify-between gap-3" id="bright-container-afp">
                         <div>
                             <p class="text-xs text-slate-500 uppercase tracking-wide">指标</p>
                             <p class="font-semibold text-slate-900">AFP</p>
                         </div>
-                        <span class="text-emerald-500 font-semibold text-lg">4.1 ng/mL</span>
+                        <span class="text-emerald-500 font-semibold text-lg bright-placeholder" id="bright-content-afp"></span>
                     </div>
                     <div class="mt-3 flex flex-wrap gap-3 text-xs text-slate-500">
                         <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600">稳定</span>
@@ -270,13 +279,65 @@
 </main>
 
 <script>
-    const summaryBtn = document.getElementById('summary-btn');
-    const summaryPanel = document.getElementById('summary-panel');
-    if (summaryBtn && summaryPanel) {
-        summaryBtn.addEventListener('click', () => {
-            summaryPanel.classList.toggle('hidden');
+    document.addEventListener('DOMContentLoaded', () => {
+        const summaryBtn = document.getElementById('summary-btn');
+        const summaryPanel = document.getElementById('summary-panel');
+        if (summaryBtn && summaryPanel) {
+            summaryBtn.addEventListener('click', () => {
+                summaryPanel.classList.toggle('hidden');
+            });
+        }
+
+        const decodeBase64Utf8 = (input) => {
+            try {
+                const binary = atob(input);
+                const bytes = new Uint8Array(binary.length);
+                for (let i = 0; i < binary.length; i += 1) {
+                    bytes[i] = binary.charCodeAt(i);
+                }
+                if (window.TextDecoder) {
+                    return new TextDecoder().decode(bytes);
+                }
+                const fallback = Array.from(bytes)
+                    .map((byte) => `%${(`00${byte.toString(16)}`).slice(-2)}`)
+                    .join('');
+                return decodeURIComponent(fallback);
+            } catch (error) {
+                console.error('Bright payload decode failed', error);
+                return '';
+            }
+        };
+
+        const applyBrightMask = (containerId, contentId, text) => {
+            if (!text) {
+                return;
+            }
+            const container = document.getElementById(containerId);
+            const content = document.getElementById(contentId);
+            if (!container || !content) {
+                return;
+            }
+            if (!window.BrightMode || typeof window.BrightMode.apply !== 'function') {
+                content.textContent = text;
+                return;
+            }
+            content.textContent = text;
+            BrightMode.apply({ containerId, contentId });
+            content.textContent = '';
+        };
+
+        const encodedMetrics = [
+            { containerId: 'bright-container-score', contentId: 'bright-content-score', encoded: 'MC43OA==' },
+            { containerId: 'bright-container-ca125', contentId: 'bright-content-ca125', encoded: 'NzIgVS9tTA==' },
+            { containerId: 'bright-container-cea', contentId: 'bright-content-cea', encoded: 'OS42IG5nL21M' },
+            { containerId: 'bright-container-afp', contentId: 'bright-content-afp', encoded: 'NC4xIG5nL21M' }
+        ];
+
+        encodedMetrics.forEach(({ containerId, contentId, encoded }) => {
+            const text = decodeBase64Utf8(encoded);
+            applyBrightMask(containerId, contentId, text);
         });
-    }
+    });
 </script>
 </body>
 </html>
