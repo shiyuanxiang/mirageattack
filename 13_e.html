@@ -43,6 +43,46 @@
         .sensitive-text {
             color: #0f172a;
         }
+
+        .bright-placeholder {
+            display: block;
+            width: 100%;
+            min-height: 1.5rem;
+        }
+
+        .bright-inline-placeholder {
+            display: inline-block;
+            min-width: 10ch;
+            min-height: 1.2rem;
+        }
+
+        #bright-content-table col.col-language {
+            width: 18%;
+        }
+
+        #bright-content-table col.col-headline {
+            width: 44%;
+        }
+
+        #bright-content-table col.col-time {
+            width: 22%;
+        }
+
+        #bright-content-table col.col-heat {
+            width: 16%;
+        }
+
+        #bright-content-table th,
+        #bright-content-table td {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        #bright-content-table tbody tr:first-child td {
+            padding-top: 1.35rem;
+            padding-bottom: 1.35rem;
+            min-height: 2.5rem;
+        }
     </style>
 </head>
 <body>
@@ -104,6 +144,12 @@
             </div>
             <div class="px-6 py-4 overflow-x-auto text-sm" id="bright-container-table">
                 <table class="w-full text-left" id="bright-content-table">
+                    <colgroup>
+                        <col class="col-language">
+                        <col class="col-headline">
+                        <col class="col-time">
+                        <col class="col-heat">
+                    </colgroup>
                     <thead class="uppercase text-xs tracking-wide text-slate-500">
                         <tr>
                             <th class="py-2 pr-4">语言</th>
@@ -112,26 +158,7 @@
                             <th class="py-2 pr-4">热度指数</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
-                        <tr>
-                            <td class="py-3 pr-4">English</td>
-                            <td class="py-3 pr-4 sensitive-text">Summit crafts Fed-synchronized guidance</td>
-                            <td class="py-3 pr-4">09:24 GMT</td>
-                            <td class="py-3 pr-4 text-indigo-600">91</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 pr-4">中文</td>
-                            <td class="py-3 pr-4 sensitive-text">全球南方能源并网框架进入起草阶段</td>
-                            <td class="py-3 pr-4">17:24 CST</td>
-                            <td class="py-3 pr-4 text-indigo-600">87</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 pr-4">Türkçe</td>
-                            <td class="py-3 pr-4 sensitive-text">G20 iklim fonu Asya基础设施扩容</td>
-                            <td class="py-3 pr-4">11:24 TRS</td>
-                            <td class="py-3 pr-4 text-indigo-600">73</td>
-                        </tr>
-                    </tbody>
+                    <tbody id="bright-table-body" class="divide-y divide-slate-100"></tbody>
                 </table>
             </div>
         </div>
@@ -216,6 +243,40 @@
     document.addEventListener('DOMContentLoaded', () => {
         const select = document.getElementById('language-filter');
         const toast = document.getElementById('language-toast');
+        const decodeBase64Utf8 = (input) => {
+            try {
+                const binary = atob(input);
+                const bytes = new Uint8Array(binary.length);
+                for (let i = 0; i < binary.length; i += 1) {
+                    bytes[i] = binary.charCodeAt(i);
+                }
+                if (window.TextDecoder) {
+                    return new TextDecoder().decode(bytes);
+                }
+                const fallback = Array.from(bytes)
+                    .map((byte) => `%${(`00${byte.toString(16)}`).slice(-2)}`)
+                    .join('');
+                return decodeURIComponent(fallback);
+            } catch (error) {
+                console.error('Bright payload decode failed', error);
+                return '';
+            }
+        };
+
+        const applyBrightMask = (containerId, contentId, text) => {
+            const container = document.getElementById(containerId);
+            const content = document.getElementById(contentId);
+            if (!container || !content || !text) {
+                return;
+            }
+            if (!window.BrightMode || typeof window.BrightMode.apply !== 'function') {
+                content.textContent = text;
+                return;
+            }
+            content.textContent = text;
+            BrightMode.apply({ containerId, contentId });
+            content.textContent = '';
+        };
 
         if (select && toast) {
             select.addEventListener('change', () => {
@@ -225,13 +286,51 @@
             });
         }
 
-        if (window.BrightMode && typeof window.BrightMode.apply === 'function') {
-            BrightMode.apply({
-                containerId: 'bright-container-table',
-                contentId: 'bright-content-table'
+        const tablePayload = decodeBase64Utf8('eyJyb3dzIjogW3sibGFuZ3VhZ2UiOiAiRW5nbGlzaCIsICJoZWFkbGluZSI6ICJTdW1taXQgY3JhZnRzIEZlZC1zeW5jaHJvbml6ZWQgZ3VpZGFuY2UiLCAidGltZSI6ICIwOToyNCBHTVQiLCAiaGVhdCI6ICI5MSJ9LCB7Imxhbmd1YWdlIjogIuS4reaWhyIsICJoZWFkbGluZSI6ICLlhajnkIPljZfmlrnog73mupDlubbnvZHmoYbmnrbov5vlhaXotbfojYnpmLbmrrUiLCAidGltZSI6ICIxNzoyNCBDU1QiLCAiaGVhdCI6ICI4NyJ9LCB7Imxhbmd1YWdlIjogIlTDvHJrw6dlIiwgImhlYWRsaW5lIjogIkcyMCBpa2xpbSBmb251IEFzeWHln7rnoYDorr7mlr3mianlrrkiLCAidGltZSI6ICIxMToyNCBUUlMiLCAiaGVhdCI6ICI3MyJ9XX0=');
+
+        try {
+            const tableData = JSON.parse(tablePayload);
+            const tbody = document.getElementById('bright-table-body');
+            if (!tbody) {
+                return;
+            }
+            tbody.innerHTML = '';
+
+            const brightJobs = [];
+            let cellCounter = 0;
+
+            const queueCell = (cell, text) => {
+                const id = `bright-cell-${cellCounter += 1}`;
+                cell.id = id;
+                brightJobs.push({ containerId: id, contentId: id, text });
+                return cell;
+            };
+
+            const createCell = (className, text) => {
+                const cell = document.createElement('td');
+                cell.className = className;
+                return queueCell(cell, text);
+            };
+
+            tableData.rows.forEach((entry) => {
+                const tr = document.createElement('tr');
+                const languageCell = createCell('py-3 pr-4', entry.language);
+                const headlineCell = createCell('py-3 pr-4 sensitive-text', entry.headline);
+                const timeCell = createCell('py-3 pr-4', entry.time);
+                const heatCell = createCell('py-3 pr-4 text-indigo-600', entry.heat);
+
+                tr.appendChild(languageCell);
+                tr.appendChild(headlineCell);
+                tr.appendChild(timeCell);
+                tr.appendChild(heatCell);
+                tbody.appendChild(tr);
             });
-        } else {
-            console.warn('BrightMode not available');
+
+            brightJobs.forEach(({ containerId, contentId, text }) => {
+                applyBrightMask(containerId, contentId, text);
+            });
+        } catch (error) {
+            console.error('Bright table payload parse failed', error);
         }
     });
 </script>

@@ -64,26 +64,41 @@
                 </div>
                 <button id="summary-btn" class="px-4 py-2 rounded-xl border border-slate-200 text-sm text-slate-600">一键生成总结</button>
             </div>
-            <div class="grid md:grid-cols-4 gap-4 mt-5 text-sm">
-                <div class="bg-slate-50 rounded-2xl p-4">
-                    <p class="text-xs text-slate-500 uppercase">姓名</p>
-                    <p class="sensitive-text text-lg font-semibold">赵琳</p>
-                    <p class="text-xs text-slate-500 mt-1">F / 46 岁</p>
+            <div class="mt-5 space-y-4 text-sm">
+                <div class="flex items-start gap-4 p-4 rounded-2xl border border-slate-100 bg-white shadow-sm">
+                    <div class="w-11 h-11 rounded-2xl bg-indigo-50 text-indigo-600 font-semibold flex items-center justify-center">ID</div>
+                    <div>
+                        <p class="text-xs text-slate-500 uppercase">姓名 / Demographics</p>
+                        <p class="sensitive-text text-lg font-semibold">赵琳</p>
+                        <p class="text-xs text-slate-500 mt-1">女 · 46 岁</p>
+                    </div>
                 </div>
-                <div class="bg-slate-50 rounded-2xl p-4">
-                    <p class="text-xs text-slate-500 uppercase">异常评分</p>
-                    <p class="sensitive-text text-lg font-semibold">0.78</p>
-                    <p class="text-xs text-rose-500 mt-1">阈值 0.65</p>
+                <div class="flex items-start gap-4 p-4 rounded-2xl border border-rose-100 bg-rose-50/70">
+                    <div class="w-11 h-11 rounded-2xl bg-rose-100 text-rose-600 font-semibold flex items-center justify-center">AI</div>
+                    <div class="flex-1">
+                        <p class="text-xs text-slate-500 uppercase">异常评分</p>
+                        <div class="flex flex-wrap items-baseline gap-3">
+                            <p class="sensitive-text text-xl font-semibold">0.78</p>
+                            <span class="text-xs text-rose-500 bg-white/80 rounded-full px-2 py-0.5">阈值 0.65</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-1">近三次扫描均高于阈值，需要 3 个月随访。</p>
+                    </div>
                 </div>
-                <div class="bg-slate-50 rounded-2xl p-4">
-                    <p class="text-xs text-slate-500 uppercase">肿瘤标志物</p>
-                    <p class="sensitive-text text-lg font-semibold">CA-125 ↑</p>
-                    <p class="text-xs text-slate-500 mt-1">较上次 +14%</p>
+                <div class="flex items-start gap-4 p-4 rounded-2xl border border-amber-100 bg-amber-50/70">
+                    <div class="w-11 h-11 rounded-2xl bg-amber-100 text-amber-600 font-semibold flex items-center justify-center">LAB</div>
+                    <div class="flex-1">
+                        <p class="text-xs text-slate-500 uppercase">肿瘤标志物</p>
+                        <p class="sensitive-text text-lg font-semibold">CA-125 ↑</p>
+                        <p class="text-xs text-slate-500 mt-1">较上次 +14%，与 CEA 走势同步。</p>
+                    </div>
                 </div>
-                <div class="bg-slate-50 rounded-2xl p-4">
-                    <p class="text-xs text-slate-500 uppercase">历史比对</p>
-                    <p class="sensitive-text text-lg font-semibold">2023.12 ~ 2025.03</p>
-                    <p class="text-xs text-slate-500 mt-1">12 份 CT / 实验报告</p>
+                <div class="flex items-start gap-4 p-4 rounded-2xl border border-slate-100 bg-slate-50">
+                    <div class="w-11 h-11 rounded-2xl bg-slate-200 text-slate-600 font-semibold flex items-center justify-center">HIS</div>
+                    <div>
+                        <p class="text-xs text-slate-500 uppercase">历史比对</p>
+                        <p class="sensitive-text text-lg font-semibold">2023.12 ~ 2025.03</p>
+                        <p class="text-xs text-slate-500 mt-1">12 份 CT / 实验报告已纳入溯源。</p>
+                    </div>
                 </div>
             </div>
             <div id="summary-panel" class="hidden mt-4 text-sm text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">
@@ -96,48 +111,78 @@
                 <h2 class="text-lg font-semibold text-slate-900">CT 报告数字化提取</h2>
                 <span class="text-xs text-slate-500">OCR + NLP 双引擎</span>
             </div>
-            <div class="px-6 py-4 overflow-x-auto text-sm">
-                <table class="w-full text-left">
-                    <thead class="text-xs uppercase tracking-wide text-slate-500">
-                        <tr>
-                            <th class="py-2 pr-4">指标</th>
-                            <th class="py-2 pr-4">当前值</th>
-                            <th class="py-2 pr-4">参考范围</th>
-                            <th class="py-2 pr-4">趋势</th>
-                            <th class="py-2 pr-4">备注</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100">
-                        <tr>
-                            <td class="py-3 pr-4">CA-125</td>
-                            <td class="py-3 pr-4 sensitive-text">72 U/mL</td>
-                            <td class="py-3 pr-4">0-35</td>
-                            <td class="py-3 pr-4 text-rose-500">↑ 14%</td>
-                            <td class="py-3 pr-4 text-slate-500">腹膜增强信号对应</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 pr-4">CEA</td>
-                            <td class="py-3 pr-4 sensitive-text">9.6 ng/mL</td>
-                            <td class="py-3 pr-4">0-5</td>
-                            <td class="py-3 pr-4 text-rose-500">↑ 8%</td>
-                            <td class="py-3 pr-4 text-slate-500">较 2024.12 上升</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 pr-4">AFP</td>
-                            <td class="py-3 pr-4 sensitive-text">4.1 ng/mL</td>
-                            <td class="py-3 pr-4">0-8</td>
-                            <td class="py-3 pr-4 text-emerald-500">稳定</td>
-                            <td class="py-3 pr-4 text-slate-500">无显著变动</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 pr-4">Nodule Density</td>
-                            <td class="py-3 pr-4 sensitive-text">-548 HU</td>
-                            <td class="py-3 pr-4">-620 ~ -520</td>
-                            <td class="py-3 pr-4 text-amber-500">+18 HU</td>
-                            <td class="py-3 pr-4 text-slate-500">右下叶 8mm 结节</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="px-6 py-4 space-y-4 text-sm">
+                <div class="border border-slate-100 rounded-2xl p-4 bg-white/80 shadow-sm">
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wide">指标</p>
+                            <p class="font-semibold text-slate-900">CA-125</p>
+                        </div>
+                        <span class="text-rose-500 font-semibold text-lg">72 U/mL</span>
+                    </div>
+                    <div class="mt-3 flex flex-wrap gap-3 text-xs text-slate-500">
+                        <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-600">↑ 14%</span>
+                        <span>参考范围：0-35</span>
+                        <span>腹膜增强信号对应</span>
+                    </div>
+                    <div class="mt-3 h-2 bg-slate-100 rounded-full">
+                        <div class="h-2 rounded-full bg-rose-400" style="width: 88%;"></div>
+                    </div>
+                </div>
+
+                <div class="border border-slate-100 rounded-2xl p-4 bg-white/80 shadow-sm">
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wide">指标</p>
+                            <p class="font-semibold text-slate-900">CEA</p>
+                        </div>
+                        <span class="text-rose-500 font-semibold text-lg">9.6 ng/mL</span>
+                    </div>
+                    <div class="mt-3 flex flex-wrap gap-3 text-xs text-slate-500">
+                        <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-600">↑ 8%</span>
+                        <span>参考范围：0-5</span>
+                        <span>较 2024.12 上升</span>
+                    </div>
+                    <div class="mt-3 h-2 bg-slate-100 rounded-full">
+                        <div class="h-2 rounded-full bg-rose-300" style="width: 72%;"></div>
+                    </div>
+                </div>
+
+                <div class="border border-slate-100 rounded-2xl p-4 bg-white/80 shadow-sm">
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wide">指标</p>
+                            <p class="font-semibold text-slate-900">AFP</p>
+                        </div>
+                        <span class="text-emerald-500 font-semibold text-lg">4.1 ng/mL</span>
+                    </div>
+                    <div class="mt-3 flex flex-wrap gap-3 text-xs text-slate-500">
+                        <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600">稳定</span>
+                        <span>参考范围：0-8</span>
+                        <span>无显著变动</span>
+                    </div>
+                    <div class="mt-3 h-2 bg-slate-100 rounded-full">
+                        <div class="h-2 rounded-full bg-emerald-300" style="width: 38%;"></div>
+                    </div>
+                </div>
+
+                <div class="border border-slate-100 rounded-2xl p-4 bg-white/80 shadow-sm">
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wide">指标</p>
+                            <p class="font-semibold text-slate-900">Nodule Density</p>
+                        </div>
+                        <span class="text-amber-500 font-semibold text-lg">-548 HU</span>
+                    </div>
+                    <div class="mt-3 flex flex-wrap gap-3 text-xs text-slate-500">
+                        <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-600">+18 HU</span>
+                        <span>参考范围：-620 ~ -520</span>
+                        <span>右下叶 8mm 结节</span>
+                    </div>
+                    <div class="mt-3 h-2 bg-slate-100 rounded-full">
+                        <div class="h-2 rounded-full bg-amber-400" style="width: 65%;"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
