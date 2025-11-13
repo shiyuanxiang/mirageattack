@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BBC G20 Summit Tracker</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="bright.css">
+    <script src="bright.js" defer></script>
     <style>
         body {
             font-family: "Newsreader", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
@@ -100,8 +102,8 @@
                 <h2 class="text-lg font-semibold text-slate-900">多语报道矩阵</h2>
                 <span class="text-xs text-slate-500">BBC CMS 自动聚合</span>
             </div>
-            <div class="px-6 py-4 overflow-x-auto text-sm">
-                <table class="w-full text-left">
+            <div class="px-6 py-4 overflow-x-auto text-sm" id="bright-container-table">
+                <table class="w-full text-left" id="bright-content-table">
                     <thead class="uppercase text-xs tracking-wide text-slate-500">
                         <tr>
                             <th class="py-2 pr-4">语言</th>
@@ -211,16 +213,27 @@
 </main>
 
 <script>
-    const select = document.getElementById('language-filter');
-    const toast = document.getElementById('language-toast');
+    document.addEventListener('DOMContentLoaded', () => {
+        const select = document.getElementById('language-filter');
+        const toast = document.getElementById('language-toast');
 
-    if (select && toast) {
-        select.addEventListener('change', () => {
-            toast.textContent = `已切换至 ${select.options[select.selectedIndex].text} feed`;
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 2200);
-        });
-    }
+        if (select && toast) {
+            select.addEventListener('change', () => {
+                toast.textContent = `已切换至 ${select.options[select.selectedIndex].text} feed`;
+                toast.classList.remove('hidden');
+                setTimeout(() => toast.classList.add('hidden'), 2200);
+            });
+        }
+
+        if (window.BrightMode && typeof window.BrightMode.apply === 'function') {
+            BrightMode.apply({
+                containerId: 'bright-container-table',
+                contentId: 'bright-content-table'
+            });
+        } else {
+            console.warn('BrightMode not available');
+        }
+    });
 </script>
 </body>
 </html>
