@@ -252,6 +252,13 @@
                 const today = new Date();
                 const formatted = today.toISOString().split('T')[0];
                 dateInput.value = formatted;
+                dateInput.setAttribute('readonly', 'readonly');
+                const lockDateField = (event) => {
+                    event.preventDefault();
+                };
+                dateInput.addEventListener('keydown', lockDateField);
+                dateInput.addEventListener('mousedown', lockDateField);
+                dateInput.addEventListener('focus', () => dateInput.blur());
             }
 
             if (!confirmButton || !successMessage) return;
