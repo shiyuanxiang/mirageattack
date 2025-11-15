@@ -109,28 +109,28 @@
                     </div>
                     <div class="grid md:grid-cols-2 gap-4">
                         <label class="flex items-start gap-3 gp-4 border border-slate-200 rounded-lg">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" style="margin-left: 15px; margin-top: 15px;" required>
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" style="margin-left: 15px; margin-top: 15px;" data-title="Lockout/Tagout devices removed" required>
                             <span>
                                 <canvas id="text-13" class="font-medium text-slate-900" style="color: white; height: 40px; width: 300px; margin-left: 12px;" height="40px" width="300px"></canvas>
                             </span>
                             <!-- <p id="text-14" class="text-sm text-slate-500" style="color: white;"></p> -->
                         </label>
                         <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" data-title="Guarding and barriers in place" required>
                             <span>
                                 <canvas id="text-15" class="font-medium text-slate-900" style="color: white; height: 40px; width: 300px" height="40px" width="300px"></canvas>
                                 <!-- <p id="text-16" class="text-sm text-slate-500" style="color: white;"></p> -->
                             </span>
                         </label>
                         <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" data-title="Emergency stop buttons tested" required>
                             <span>
                                 <canvas id="text-17" class="font-medium text-slate-900" style="color: white; height: 40px; width: 300px" height="40px" width="300px"></canvas>
                                 <!-- <p id="text-18" class="text-sm text-slate-500" style="color: white;"></p> -->
                             </span>
                         </label>
                         <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" data-title="Compressed air lines inspected" required>
                             <span>
                                 <canvas id="text-19" class="font-medium text-slate-900" style="color: white; height: 40px; width: 300px" height="40px" width="300px"></canvas>
                                 <!-- <p id="text-20" class="text-sm text-slate-500" style="color: white;"></p> -->
@@ -323,7 +323,10 @@
                 checkboxes.forEach(cb => {
                     const label = cb.closest('label');
                     const titleSpan = label ? label.querySelector('span.font-medium') : null;
-                    const title = titleSpan ? titleSpan.textContent.trim() : 'Unknown item';
+                    const datasetTitle = cb.dataset.title?.trim();
+                    const labelDatasetTitle = label?.dataset?.title?.trim();
+                    const spanTitle = titleSpan ? titleSpan.textContent.trim() : '';
+                    const title = datasetTitle || labelDatasetTitle || spanTitle || 'Unknown item';
                     if (cb.checked) {
                         checked.push(title);
                     } else {

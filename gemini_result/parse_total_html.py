@@ -240,9 +240,7 @@ def main() -> None:
     }
 
     output_name = (
-        html_file.with_name(f"{html_file.stem}_steps.txt")
-        if html_file.suffix.lower() == ".html"
-        else html_file.with_name(f"{html_file.name}_steps.txt")
+        html_file.with_name(f"{html_file.stem}")
     )
     output_name.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"Wrote parsed steps to {output_name}")
